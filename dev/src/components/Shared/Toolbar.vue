@@ -16,18 +16,17 @@
       a(class="btn flat" @click="logout" v-if="profile") Logout
 </template>
 
-<script>
-export default {
-  name: "Toolbar",
-  computed: {
-    profile() {
-      return this.$store.getters.getProfile;
-    }
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch("logout");
-    }
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class Toolbar extends Vue {
+  get profile() {
+    return this.$store.getters.getProfile;
   }
-};
+
+  logout() {
+    this.$store.dispatch("logout");
+  }
+}
 </script>

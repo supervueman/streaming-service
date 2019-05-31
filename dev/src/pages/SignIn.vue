@@ -8,28 +8,24 @@
     button(class="btn" @click="signIn") Sign In
 </template>
 
-<script>
-export default {
-  name: "Signin",
-  data() {
-    return {
-      password: "",
-      email: ""
-    };
-  },
-  computed: {
-    profile() {
-      return this.$store.getters["authenticate/getProfile"];
-    }
-  },
-  methods: {
-    signIn() {
-      const data = {
-        password: this.password,
-        email: this.email
-      };
-      this.$store.dispatch("authenticate/signIn", data);
-    }
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component
+export default class Signin extends Vue {
+  password: string = "";
+  email: string = "";
+
+  get profile() {
+    return this.$store.getters["authenticate/getProfile"];
   }
-};
+
+  signIn() {
+    const data = {
+      password: this.password,
+      email: this.email
+    };
+    this.$store.dispatch("authenticate/signIn", data);
+  }
+}
 </script>

@@ -11,14 +11,12 @@ import paths from './paths';
  * @returns {object}
  * Функция возвращает объект роутера
  */
-function route(path, name, component) {
+function route(path: string, name: string, component: string) {
 	return {
 		path,
 		name,
-		component: () => import(
-			`@/pages/${component}.vue`
-		)
-	}
+		component: () => import(`@/pages/${component}.vue`)
+	};
 }
 
 Vue.use(Router);
@@ -26,4 +24,4 @@ Vue.use(Router);
 export default new Router({
 	mode: 'history',
 	routes: paths.map(path => route(path.path, path.name, path.component))
-})
+});
