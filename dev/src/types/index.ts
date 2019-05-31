@@ -25,11 +25,11 @@ export interface RequestDataInterface {
 
 // Types for authntication
 
-export interface Profile {
-	id: string;
+export interface ProfileInterface {
+	_id: string;
 	email: string;
 }
 
 export interface ProfileState {
-	profile: Profile;
+	profile: ProfileInterface;
 }

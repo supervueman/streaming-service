@@ -8,7 +8,7 @@ import requestDataHandler from '../../plugins/requestDataHandler';
 
 const state: ProfileState = {
 	profile: {
-		id: '',
+		_id: '',
 		email: ''
 	}
 };
@@ -83,7 +83,10 @@ const actions: ActionTree<ProfileState, RootState> = {
 		if (res) {
 			if (res.status === 200) {
 				localStorage.setItem('access_token', res.data.token);
-				commit('setProfile', null);
+				commit('setProfile', {
+					_id: '',
+					email: ''
+				});
 				router.push('/');
 			}
 		}

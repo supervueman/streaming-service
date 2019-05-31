@@ -1,32 +1,30 @@
 <template lang="pug">
-  header(class="toolbar")
-    div(class="container d-flex content-end")
-      router-link(
-        to="/signin"
-        class="btn flat"
-        @click="isSignIn = true; isSignUp = false"
-        v-if="!profile"
-      ) Sign In
-      router-link(
-        to="/signup"
-        class="btn flat"
-        @click="isSignIn = false; isSignUp = true"
-        v-if="!profile"
-      ) Sign Up
-      a(class="btn flat" @click="logout" v-if="profile") Logout
+  v-toolbar(app dark class="primary")
+    v-toolbar-title TEMPLATE
+    v-spacer
+    v-toolbar-items(class="hidden-xs-and-down" v-if="profile._id === ''")
+      v-btn(flat to="/signin") Login
+      v-btn(flat to="/signup") Sign up
+    v-toolbar-items(class="hidden-xs-and-down" v-if="profile._id !== ''")
+      v-btn(flat @click="logout") Logout
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
+import { ProfileInterface } from "../../types";
 
 @Component
 export default class Toolbar extends Vue {
-  get profile() {
-    return this.$store.getters.getProfile;
-  }
+  @Prop({
+    default: {
+      _id: "",
+      email: ""
+    }
+  })
+  profile: ProfileInterface;
 
   logout() {
-    this.$store.dispatch("logout");
+    this.$store.dispatch("authenticate/logout");
   }
 }
 </script>
