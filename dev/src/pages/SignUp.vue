@@ -8,28 +8,24 @@
     button(class="btn" @click="signUp") Sign Up
 </template>
 
-<script>
-export default {
-  name: "Signup",
-  data() {
-    return {
-      password: "",
-      email: ""
-    };
-  },
-  computed: {
-    profile() {
-      return this.$store.getters["authenticate/getProfile"];
-    }
-  },
-  methods: {
-    signUp() {
-      const data = {
-        password: this.password,
-        email: this.email
-      };
-      this.$store.dispatch("authenticate/signUp", data);
-    }
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+@Component
+export default class SignUp extends Vue {
+  password: string = "";
+  email: string = "";
+
+  get profile() {
+    return this.$store.getters["authenticate/getProfile"];
   }
-};
+
+  signUp() {
+    const data = {
+      password: this.password,
+      email: this.email
+    };
+    this.$store.dispatch("authenticate/signUp", data);
+  }
+}
 </script>
