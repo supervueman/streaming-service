@@ -5,6 +5,7 @@ module.exports = {
     "eslint:recommended"
   ],
   rules: {
+    "no-console": 0
     // override/add rules settings here, such as:
     // 'vue/no-unused-vars': 'error'
   },

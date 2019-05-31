@@ -5,6 +5,7 @@ import App from './App.vue';
 import router from './routers';
 import { store } from './store';
 import axios from 'axios';
+import 'vuetify/dist/vuetify.min.css';
 
 sharedComponents();
 

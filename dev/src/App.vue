@@ -1,15 +1,26 @@
 <template lang="pug">
-  div(id="app")
-    div(id="nav")
-      router-link(to="/") Home |
-      router-link(to="/about") About
+	div(id="app")
+		v-app(light)
+			toolbar(:profile="profile")
+			div {{profile}}
+			v-content
+				v-container(fluid id="container")
+					router-view
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
 
 @Component
-export default class App extends Vue {}
+export default class App extends Vue {
+  @Action("fetchProfile", { namespace: "authenticate" }) fetchProfile: any;
+  @Getter("getProfile", { namespace: "authenticate" }) profile: string;
+
+  async mounted() {
+    await this.fetchProfile();
+  }
+}
 </script>
 
 <style lang="scss">

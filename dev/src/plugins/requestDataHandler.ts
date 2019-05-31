@@ -29,15 +29,12 @@ export default (
 	headers: HeadersInterface | null
 ): RequestDataInterface => {
 	const access_token: string | null = localStorage.getItem('access_token');
-
 	const requestData: RequestDataInterface = {
 		method,
 		url,
 		headers: {
 			'Content-Type': 'application/json'
-		},
-		data: null,
-		params: null
+		}
 	};
 
 	if (headers !== undefined && headers !== null) {
