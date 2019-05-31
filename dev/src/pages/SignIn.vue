@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     profile() {
-      return this.$store.getters.getProfile;
+      return this.$store.getters["authenticate/getProfile"];
     }
   },
   methods: {
@@ -28,7 +28,7 @@ export default {
         password: this.password,
         email: this.email
       };
-      this.$store.dispatch("signIn", data);
+      this.$store.dispatch("authenticate/signIn", data);
     }
   }
 };
