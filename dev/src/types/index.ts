@@ -1,3 +1,7 @@
+export interface RootState {
+	version: string;
+}
+
 // Types for plugins/requestDataHandler
 export interface DataInterface {
 	[key: string]: any;
@@ -17,4 +21,15 @@ export interface RequestDataInterface {
 	data?: DataInterface | null;
 	params?: ParamsInterface | null;
 	headers?: HeadersInterface | null;
+}
+
+// Types for authntication
+
+export interface Profile {
+	id: string;
+	email: string;
+}
+
+export interface ProfileState {
+	profile: Profile;
 }

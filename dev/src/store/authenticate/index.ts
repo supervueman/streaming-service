@@ -1,76 +1,105 @@
+import { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
+import { ProfileState, RootState, RequestDataInterface } from '../../types';
+
 import axios from 'axios';
 import router from '../../routers';
 
-export default {
-	namespaced: true,
-	state: {
-		profile: null
-	},
-	mutations: {
-		setProfile(state, payload) {
-			state.profile = payload;
-		}
-	},
-	actions: {
-		async signUp({ commit }, payload) {
-			await axios({
-				method: 'POST',
-				data: payload,
-				url: '/user/signup'
-			}).catch(err => {
-				console.error(err);
-			});
-		},
+import requestDataHandler from '../../plugins/requestDataHandler';
 
-		async signIn({ commit }, payload) {
-			const res = await axios({
-				method: 'POST',
-				data: payload,
-				url: '/user/signin'
-			}).catch(err => {
-				console.error(err);
-			});
-			localStorage.setItem('access_token', res.data.token);
-			this.dispatch('fetchProfile');
-		},
+const state: ProfileState = {
+	profile: {
+		id: '',
+		email: ''
+	}
+};
 
-		async fetchProfile({ commit }) {
-			const res = await axios({
-				method: 'GET',
-				url: '/user/profile',
-				headers: {
-					'x-access-token': localStorage.getItem('access_token')
-				}
-			}).catch(err => {
-				console.error(err);
-			});
-			if (res) {
-				if (res.status === 200) {
-					commit('setProfile', res.data);
-					router.push('/profile');
-				}
+const mutations: MutationTree<ProfileState> = {
+	setProfile(state, payload) {
+		state.profile = payload;
+	}
+};
+
+const actions: ActionTree<ProfileState, RootState> = {
+	async signUp(undefined, payload) {
+		const data: RequestDataInterface = requestDataHandler(
+			'POST',
+			'/user/signup',
+			payload,
+			null,
+			null
+		);
+		await axios(data).catch(err => {
+			console.error(err);
+		});
+	},
+
+	async signIn(undefined, payload) {
+		const data: RequestDataInterface = requestDataHandler(
+			'POST',
+			'/user/signin',
+			payload,
+			null,
+			null
+		);
+		const res: any = await axios(data).catch(err => {
+			console.error(err);
+		});
+		localStorage.setItem('access_token', res.data.token);
+		this.dispatch('fetchProfile');
+	},
+
+	async fetchProfile({ commit }) {
+		const data: RequestDataInterface = requestDataHandler(
+			'GET',
+			'/user/profile',
+			null,
+			null,
+			{
+				'x-access-token': localStorage.getItem('access_token')
 			}
-		},
-
-		async logout({ commit }) {
-			const res = await axios({
-				method: 'GET',
-				url: '/user/logout'
-			}).catch(err => {
-				console.error(err);
-			});
-			if (res) {
-				if (res.status === 200) {
-					localStorage.setItem('access_token', res.data.token);
-					commit('setProfile', null);
-					router.push('/');
-				}
+		);
+		const res: any = await axios(data).catch(err => {
+			console.error(err);
+		});
+		if (res) {
+			if (res.status === 200) {
+				commit('setProfile', res.data);
+				router.push('/profile');
 			}
 		}
 	},
-	getters: {
-		getProfile(state) {
-			return state.profile;
+
+	async logout({ commit }) {
+		const data: RequestDataInterface = requestDataHandler(
+			'GET',
+			'/user/logout',
+			null,
+			null,
+			null
+		);
+		const res: any = await axios(data).catch(err => {
+			console.error(err);
+		});
+		if (res) {
+			if (res.status === 200) {
+				localStorage.setItem('access_token', res.data.token);
+				commit('setProfile', null);
+				router.push('/');
+			}
 		}
 	}
+};
+
+const getters: GetterTree<ProfileState, RootState> = {
+	getProfile(state) {
+		return state.profile;
+	}
+};
+
+export const authenticate: Module<ProfileState, RootState> = {
+	state,
+	getters,
+	actions,
+	mutations,
+	namespaced: true
 };

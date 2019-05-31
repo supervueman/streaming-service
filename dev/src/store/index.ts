@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import authenticate from './authenticate';
+import { authenticate } from './authenticate';
 
 Vue.use(Vuex);
 
