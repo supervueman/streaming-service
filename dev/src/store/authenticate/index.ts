@@ -77,12 +77,14 @@ const actions: ActionTree<ProfileState, RootState> = {
 			null,
 			null
 		);
+
 		const res: any = await axios(data).catch(err => {
 			console.error(err);
 		});
+
 		if (res) {
 			if (res.status === 200) {
-				localStorage.setItem('access_token', res.data.token);
+				localStorage.removeItem('access_token');
 				commit('setProfile', {
 					_id: '',
 					email: ''

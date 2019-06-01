@@ -18,7 +18,11 @@ export default class App extends Vue {
   @Getter("getProfile", { namespace: "authenticate" }) profile: string;
 
   async mounted() {
-    await this.fetchProfile();
+    if (localStorage.getItem("access_token") !== null) {
+      await this.fetchProfile();
+    } else {
+      this.$router.push("/signin");
+    }
   }
 }
 </script>
