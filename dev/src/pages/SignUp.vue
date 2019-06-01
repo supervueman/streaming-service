@@ -1,11 +1,36 @@
 <template lang="pug">
-  div(class="sign-up" id="auth")
-    h1(class="h1") Registration
-    div(class="form-group")
-      input(type="text" name="email" placeholder="email" v-model="email")
-    div(class="form-group")
-      input(type="text" name="password" placeholder="password" v-model="password")
-    button(class="btn" @click="signUp") Sign Up
+  v-flex(mt-5)
+    v-card(
+      class="mx-auto"
+      max-width="500"
+      tag="form"
+      @keyup.enter="signUp"
+    )
+      v-card-title
+        h1(class="title") Sign up
+      v-card-text
+        v-text-field(
+          v-model="email"
+          label="E-mail:"
+          required
+        )
+        v-text-field(
+          v-model="password"
+          label="Password:"
+          type="password"
+          required
+        )
+        v-text-field(
+          v-model="confirmPassword"
+          label="Repeat password:"
+          type="password"
+          required
+        )
+      v-card-actions
+        v-btn(
+          @click="signUp"
+          color="primary"
+          class="ml-auto mr-2 mb-2") Sign up
 </template>
 
 <script lang="ts">
@@ -16,6 +41,7 @@ import { Action } from "vuex-class";
 export default class SignUp extends Vue {
   private password: string = "";
   private email: string = "";
+  private confirmPassword: string = "";
 
   @Action("signUp", { namespace: "authenticate" }) signUpAction: any;
 

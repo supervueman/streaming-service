@@ -4,6 +4,7 @@
       class="mx-auto"
       max-width="500"
       tag="form"
+      @keyup.enter="signIn"
     )
       v-card-title
         h1(class="title") Login
@@ -15,7 +16,7 @@
         )
         v-text-field(
           v-model="password"
-          label="Пароль:"
+          label="Password:"
           type="password"
           required
         )
