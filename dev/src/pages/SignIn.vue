@@ -1,11 +1,31 @@
 <template lang="pug">
-  div(class="sign-in" id="auth")
-    h1(class="h1") Login
-    div(class="form-group")
-      input(type="text" name="email" placeholder="email" v-model="email")
-    div(class="form-group")
-      input(type="text" name="password" placeholder="password" v-model="password")
-    button(class="btn" @click="signIn") Sign In
+  v-flex(class="mt-5")
+    v-card(
+      class="mx-auto"
+      max-width="500"
+      tag="form"
+    )
+      v-card-title
+        h1(class="title") Login
+      v-card-text
+        v-text-field(
+          v-model="email"
+          label="E-mail:"
+          required
+        )
+        v-text-field(
+          v-model="password"
+          label="Пароль:"
+          type="password"
+          required
+        )
+      v-card-actions
+        //- router-link(to="/reset-password" class="ml-2") Забыли пароль?
+        v-btn(
+          @click="signIn"
+          color="primary"
+          class="ml-auto mr-2 mb-2"
+        ) Login
 </template>
 
 <script lang="ts">
