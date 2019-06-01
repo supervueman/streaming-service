@@ -3,15 +3,8 @@ const bodyParser = require(`body-parser`);
 const serveStatic = require('serve-static');
 const path = require('path');
 const mongoose = require('mongoose');
-const mainRouter = require('./api/routers/main.js');
-const user = require('./api/routers/user.js');
-
-mongoose.connect(
-	`mongodb://${'localhost:27017'}/template`, {
-		useNewUrlParser: true,
-		useCreateIndex: true
-	}
-);
+const mainRouter = require('./routers/main.js');
+const user = require('./routers/user.js');
 
 const app = express();
 
@@ -50,4 +43,10 @@ app.use((error, req, res) => {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+mongoose.connect(
+	process.env.MONGO_URL, {
+		useNewUrlParser: true,
+		useCreateIndex: true
+	}
+);
+app.listen(port, () => console.log(`Example app listening on http://localhost:${port}!`));

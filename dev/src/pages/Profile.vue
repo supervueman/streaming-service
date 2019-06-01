@@ -1,5 +1,6 @@
 <template lang="pug">
   section(class="main-sect" v-if="profile")
+    div {{profile}}
     h1(class="h1") Hello {{ profile.email }}
 </template>
 
