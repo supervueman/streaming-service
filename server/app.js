@@ -2,15 +2,18 @@ const express = require(`express`);
 const bodyParser = require(`body-parser`);
 const serveStatic = require('serve-static');
 const path = require('path');
-const mongoose = require('mongoose');
+
+// Database connect
+const {
+	dbconnect
+} = require('./utils/database.js');
+
+// Routers
 const mainRouter = require('./routers/main.js');
 const user = require('./routers/user.js');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV !== 'development') {
@@ -43,10 +46,6 @@ app.use((error, req, res) => {
 
 const port = process.env.PORT || 5000;
 
-mongoose.connect(
-	process.env.MONGO_URL, {
-		useNewUrlParser: true,
-		useCreateIndex: true
-	}
-);
-app.listen(port, () => console.log(`Example app listening on http://localhost:${port}!`));
+dbconnect(async () => {
+	await app.listen(port, () => console.log(`Example app listening on http://localhost:${port}!`));
+});

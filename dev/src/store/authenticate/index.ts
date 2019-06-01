@@ -71,7 +71,7 @@ const actions: ActionTree<ProfileState, RootState> = {
 
 	async logout({ commit }) {
 		const data: RequestDataInterface = requestDataHandler(
-			'GET',
+			'POST',
 			'/user/logout',
 			null,
 			null,
