@@ -5,11 +5,10 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { Getter } from "vuex-class";
 
 @Component
 export default class Profile extends Vue {
-  get profile() {
-    return this.$store.getters["authenticate/getProfile"];
-  }
+  @Getter("getProfile", { namespace: "authenticate" }) profile: string;
 }
 </script>

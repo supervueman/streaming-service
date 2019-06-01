@@ -10,22 +10,21 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { Action } from "vuex-class";
 
 @Component
 export default class Signin extends Vue {
-  password: string = "";
-  email: string = "";
+  private password: string = "";
+  private email: string = "";
 
-  get profile() {
-    return this.$store.getters["authenticate/getProfile"];
-  }
+  @Action("signIn", { namespace: "authenticate" }) signInAction: any;
 
   signIn() {
-    const data = {
+    const data: Object = {
       password: this.password,
       email: this.email
     };
-    this.$store.dispatch("authenticate/signIn", data);
+    this.signInAction(data);
   }
 }
 </script>

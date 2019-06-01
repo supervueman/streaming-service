@@ -108,7 +108,7 @@ exports.profile = (req, res) => {
 			if (!user) {
 				return res.status(404).send('No user found.');
 			}
-			user.password = 0;
+			user.password = '';
 			res.status(200).send(user);
 		});
 	});

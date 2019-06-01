@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
 import { ProfileInterface } from "../../types";
 
 @Component
@@ -21,10 +22,12 @@ export default class Toolbar extends Vue {
       email: ""
     }
   })
-  profile: ProfileInterface;
+  private profile: ProfileInterface;
+
+  @Action("logout", { namespace: "authenticate" }) logoutAction: any;
 
   logout() {
-    this.$store.dispatch("authenticate/logout");
+    this.logoutAction();
   }
 }
 </script>
