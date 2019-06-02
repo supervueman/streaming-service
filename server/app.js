@@ -2,15 +2,15 @@ const express = require(`express`);
 const bodyParser = require(`body-parser`);
 const serveStatic = require('serve-static');
 const path = require('path');
+const graphqlHttp = require('express-graphql');
 
 // Database connect
 const {
 	dbconnect
 } = require('./utils/database.js');
 
-// Routers
-const mainRouter = require('./routers/main.js');
-const user = require('./routers/user.js');
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
 
 const app = express();
 
@@ -27,22 +27,18 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use('/', mainRouter);
-app.use('/user', user);
+app.use('/graphql', graphqlHttp({
+	schema: graphqlSchema,
+	rootValue: graphqlResolver
+}));
 
-app.use((req, res, next) => {
-	const err = new Error(`Not Found`);
-	err.status = 404;
-	next(err);
-});
-
-app.use((error, req, res) => {
-	res.status(error.status || 500);
-	res.render(`error`, {
-		message: error.message,
-		error: !config.IS_PRODUCTION ? error : {}
-	});
-});
+// app.use((error, req, res) => {
+// 	res.status(error.status || 500);
+// 	res.render(`error`, {
+// 		message: error.message,
+// 		error: !config.IS_PRODUCTION ? error : {}
+// 	});
+// });
 
 const port = process.env.PORT || 5000;
 
