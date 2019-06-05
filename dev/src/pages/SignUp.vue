@@ -36,6 +36,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Action } from "vuex-class";
+import gql from "graphql-tag";
 
 @Component
 export default class SignUp extends Vue {
@@ -45,11 +46,12 @@ export default class SignUp extends Vue {
 
   @Action("signUp", { namespace: "authenticate" }) signUpAction: any;
 
-  signUp() {
+  async signUp() {
     const data: Object = {
       password: this.password,
       email: this.email
     };
+
     this.signUpAction(data);
   }
 }

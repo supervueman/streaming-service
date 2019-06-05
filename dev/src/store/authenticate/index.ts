@@ -1,10 +1,13 @@
 import { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
 import { ProfileState, RootState, RequestDataInterface } from '../../types';
-
 import axios from 'axios';
 import router from '../../routers';
 
 import requestDataHandler from '../../plugins/requestDataHandler';
+
+import { apolloClient } from '../../plugins/apolloProvider';
+import { SIGN_UP } from '../../graphql/signUp';
+import { SIGN_IN } from '../../graphql/signIn';
 
 const state: ProfileState = {
 	profile: {
@@ -20,32 +23,40 @@ const mutations: MutationTree<ProfileState> = {
 };
 
 const actions: ActionTree<ProfileState, RootState> = {
+	/**
+	 * @function signUp
+	 * @async
+	 * @param {Object} payload {email, password}
+	 */
 	async signUp(undefined, payload) {
-		const data: RequestDataInterface = requestDataHandler(
-			'POST',
-			'/user/signup',
-			payload,
-			null,
-			null
-		);
-		await axios(data).catch(err => {
-			console.error(err);
+		await apolloClient.mutate({
+			mutation: SIGN_UP,
+			variables: {
+				email: payload.email,
+				password: payload.password
+			}
 		});
 	},
 
+	/**
+	 * @function signIn
+	 * @async
+	 * @param {Object} payload {email, password}
+	 */
 	async signIn(undefined, payload) {
-		const data: RequestDataInterface = requestDataHandler(
-			'POST',
-			'/user/signin',
-			payload,
-			null,
-			null
-		);
-		const res: any = await axios(data).catch(err => {
-			console.error(err);
+		const res = await apolloClient.query({
+			query: SIGN_IN,
+			variables: {
+				email: payload.email,
+				password: payload.password
+			}
 		});
-		localStorage.setItem('access_token', res.data.token);
-		this.dispatch('authenticate/fetchProfile');
+
+		console.log(res);
+
+		localStorage.setItem('uid', res.data.login.token);
+		localStorage.setItem('access_token', res.data.login.userId);
+		// this.dispatch('authenticate/fetchProfile');
 	},
 
 	async fetchProfile({ commit }) {

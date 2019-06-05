@@ -6,6 +6,7 @@ import router from './routers';
 import { store } from './store';
 import axios from 'axios';
 import 'vuetify/dist/vuetify.min.css';
+import apolloProvider from './plugins/apolloProvider';
 
 sharedComponents();
 
@@ -20,5 +21,6 @@ axios.defaults.baseURL = baseUrl;
 new Vue({
 	router,
 	store,
+	apolloProvider,
 	render: h => h(App)
 }).$mount('#app');

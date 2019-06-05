@@ -24,7 +24,7 @@ import {
 export default (
 	method: string,
 	url: string,
-	data: DataInterface | null,
+	data: DataInterface | null | String,
 	params: ParamsInterface | null,
 	headers: HeadersInterface | null
 ): RequestDataInterface => {
