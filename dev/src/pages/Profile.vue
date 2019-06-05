@@ -1,7 +1,68 @@
 <template lang="pug">
-  section(class="main-sect" v-if="profile")
-    div {{profile}}
-    h1(class="h1") Hello {{ profile.email }}
+  v-flex(class="mt-5" v-if="profile")
+    v-card(
+      class="mx-auto"
+      max-width="500"
+      tag="form"
+    )
+      v-card-title
+        h1(class="title") Profile
+      v-card-text
+        v-text-field(
+          v-model="profile.slug"
+          label="Slug:"
+          required
+        )
+        v-text-field(
+          v-model="profile.firstname"
+          label="Firstname:"
+          required
+        )
+        v-text-field(
+          v-model="profile.lastname"
+          label="Lastname:"
+          required
+        )
+        v-text-field(
+          v-model="profile.email"
+          label="E-mail:"
+          required
+        )
+        v-text-field(
+          v-model="profile.phone"
+          label="Phone:"
+          required
+        )
+        v-text-field(
+          v-model="profile.facebook"
+          label="Facebook:"
+          required
+        )
+        v-text-field(
+          v-model="profile.instagram"
+          label="Instagram:"
+          required
+        )
+        v-text-field(
+          v-model="profile.vkontakte"
+          label="Vkontakte:"
+          required
+        )
+        v-text-field(
+          v-model="profile.avatar"
+          label="Avatar:"
+          required
+        )
+        v-text-field(
+          v-model="profile.content"
+          label="Content:"
+          required
+        )
+      v-card-actions
+        v-btn.ml-auto.mr-2.mb-2(
+          color="primary"
+          @click="save"
+        ) Save
 </template>
 
 <script lang="ts">
@@ -11,5 +72,9 @@ import { Getter } from "vuex-class";
 @Component
 export default class Profile extends Vue {
   @Getter("getProfile", { namespace: "authenticate" }) profile: string;
+
+  save() {
+    console.log(this.profile);
+  }
 }
 </script>

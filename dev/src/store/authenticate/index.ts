@@ -8,11 +8,23 @@ import requestDataHandler from '../../plugins/requestDataHandler';
 import { apolloClient } from '../../plugins/apolloProvider';
 import { SIGN_UP } from '../../graphql/signUp';
 import { SIGN_IN } from '../../graphql/signIn';
+import { QUERY_PROFILE } from '../../graphql/queryProfile';
 
 const state: ProfileState = {
 	profile: {
 		_id: '',
-		email: ''
+		slug: '',
+		email: '',
+		phone: '',
+		website: '',
+		facebook: '',
+		vkontakte: '',
+		instagram: '',
+		firstname: '',
+		lastname: '',
+		avatar: '',
+		content: '',
+		isActive: false
 	}
 };
 
@@ -52,8 +64,6 @@ const actions: ActionTree<ProfileState, RootState> = {
 			}
 		});
 
-		console.log(res);
-
 		localStorage.setItem('uid', res.data.login.userId);
 		localStorage.setItem('access_token', res.data.login.token);
 
@@ -61,28 +71,18 @@ const actions: ActionTree<ProfileState, RootState> = {
 			_id: res.data.login.userId,
 			email: 'test'
 		});
-		// this.dispatch('authenticate/fetchProfile');
+		await this.dispatch('authenticate/fetchProfile');
 	},
 
 	async fetchProfile({ commit }) {
-		const data: RequestDataInterface = requestDataHandler(
-			'GET',
-			'/user/profile',
-			null,
-			null,
-			{
-				'x-access-token': localStorage.getItem('access_token')
+		const res = await apolloClient.query({
+			query: QUERY_PROFILE,
+			variables: {
+				token: localStorage.getItem('access_token')
 			}
-		);
-		const res: any = await axios(data).catch(err => {
-			console.error(err);
 		});
-		if (res) {
-			if (res.status === 200) {
-				commit('setProfile', res.data);
-				router.push('/profile');
-			}
-		}
+
+		commit('setProfile', res.data.queryProfile);
 	},
 
 	async logout({ commit }) {

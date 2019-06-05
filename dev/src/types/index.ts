@@ -27,7 +27,18 @@ export interface RequestDataInterface {
 
 export interface ProfileInterface {
 	_id: string;
+	slug: string;
 	email: string;
+	phone?: string;
+	website?: string;
+	facebook?: string;
+	instagram?: string;
+	vkontakte?: string;
+	firstname: string;
+	lastname: string;
+	avatar?: string;
+	content?: string;
+	isActive?: boolean;
 }
 
 export interface ProfileState {

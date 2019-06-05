@@ -5,8 +5,21 @@ const {
 module.exports = buildSchema(`
   type User {
     _id: ID!
+    slug: String
     email: String!
-    password: String
+    phone: String!
+    website: String!
+    facebook: String!
+    instagram: String!
+    vkontakte: String!
+    firstname: String!
+    lastname: String!
+    avatar: String!
+    content: String!
+    isActive: Boolean!
+    subscribers: [User!]!
+    subscriptions: [User!]!
+    password: String!
     products: [Product!]!
   }
 
@@ -41,6 +54,7 @@ module.exports = buildSchema(`
   }
 
   type RootQuery {
+    queryProfile(token: String!): User!
     login(email: String!, password: String!): AuthData!
   }
 

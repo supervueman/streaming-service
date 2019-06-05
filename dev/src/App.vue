@@ -1,8 +1,7 @@
 <template lang="pug">
 	div(id="app")
 		v-app(light)
-			toolbar(:profile="profile")
-			div {{profile}}
+			toolbar(:profileId="profile._id")
 			v-content
 				v-container(fluid id="container")
 					router-view
@@ -19,7 +18,7 @@ export default class App extends Vue {
 
   async mounted() {
     if (localStorage.getItem("access_token") !== null) {
-      // await this.fetchProfile();
+      await this.fetchProfile();
     } else {
       this.$router.push("/signin");
     }

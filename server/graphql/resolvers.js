@@ -43,6 +43,16 @@ module.exports = {
     const hashedPw = await bcrypt.hash(userInput.password, 12);
     const user = new User({
       email: userInput.email,
+      phone: '',
+      website: '',
+      facebook: '',
+      instagram: '',
+      vkontakte: '',
+      firstname: '',
+      lastname: '',
+      avatar: '',
+      content: '',
+      isActive: true,
       password: hashedPw
     });
 
@@ -84,6 +94,29 @@ module.exports = {
     return {
       token,
       userId: user._id.toString()
+    }
+  },
+
+  queryProfile: async function (token, req) {
+    console.log(req.isAuth)
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
+
+    const user = await User.findById(req.userId);
+    if (!user) {
+      const error = new Error('Invalid input');
+      error.code = 401;
+      throw error;
+    }
+
+    console.log(user)
+
+    return {
+      ...user._doc,
+      _id: user._id.toString()
     }
   },
 

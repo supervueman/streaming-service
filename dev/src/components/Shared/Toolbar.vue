@@ -1,13 +1,15 @@
 <template lang="pug">
   v-toolbar(app dark class="primary")
     v-toolbar-title.mr-3 TEMPLATE
-    v-toolbar-items(class="hidden-xs-and-down" v-if="profile._id !== ''")
+    v-toolbar-items(class="hidden-xs-and-down" v-if="profileId !== ''")
       v-btn(flat to="/add-product") Add product
     v-spacer
-    v-toolbar-items(class="hidden-xs-and-down" v-if="profile._id === ''")
+    v-toolbar-items(class="hidden-xs-and-down" v-if="profileId === ''")
       v-btn(flat to="/signin") Login
       v-btn(flat to="/signup") Sign up
-    v-toolbar-items(class="hidden-xs-and-down" v-if="profile._id !== ''")
+    v-toolbar-items(class="hidden-xs-and-down" v-if="profileId !== ''")
+      v-btn(flat to="/profile") Profile
+    v-toolbar-items(class="hidden-xs-and-down" v-if="profileId !== ''")
       v-btn(flat @click="logout") Logout
 </template>
 
@@ -20,11 +22,10 @@ import { ProfileInterface } from "../../types";
 export default class Toolbar extends Vue {
   @Prop({
     default: {
-      _id: "",
-      email: ""
+      _id: ""
     }
   })
-  private profile: ProfileInterface;
+  private profileId: string;
 
   @Action("logout", { namespace: "authenticate" }) logoutAction: any;
 
