@@ -33,3 +33,20 @@ export interface ProfileInterface {
 export interface ProfileState {
 	profile: ProfileInterface;
 }
+
+// Types for product
+
+export interface ProductInterface {
+	_id: string;
+	slug: string;
+	title: string;
+	content: string;
+	imageUrl: string;
+	price: number;
+	createdAt: string;
+	updatedAt: string;
+}
+
+export interface ProductState {
+	product: ProductInterface;
+}

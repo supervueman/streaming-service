@@ -1,6 +1,8 @@
 <template lang="pug">
   v-toolbar(app dark class="primary")
-    v-toolbar-title TEMPLATE
+    v-toolbar-title.mr-3 TEMPLATE
+    v-toolbar-items(class="hidden-xs-and-down" v-if="profile._id !== ''")
+      v-btn(flat to="/add-product") Add product
     v-spacer
     v-toolbar-items(class="hidden-xs-and-down" v-if="profile._id === ''")
       v-btn(flat to="/signin") Login

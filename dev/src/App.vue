@@ -19,7 +19,7 @@ export default class App extends Vue {
 
   async mounted() {
     if (localStorage.getItem("access_token") !== null) {
-      await this.fetchProfile();
+      // await this.fetchProfile();
     } else {
       this.$router.push("/signin");
     }

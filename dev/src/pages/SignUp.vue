@@ -36,7 +36,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Action } from "vuex-class";
-import gql from "graphql-tag";
 
 @Component
 export default class SignUp extends Vue {

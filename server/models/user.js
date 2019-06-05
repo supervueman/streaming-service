@@ -19,7 +19,11 @@ const userSchema = new Schema({
 	},
 	lastName: {
 		type: String
-	}
+	},
+	products: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Product'
+	}]
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -43,7 +43,7 @@ const actions: ActionTree<ProfileState, RootState> = {
 	 * @async
 	 * @param {Object} payload {email, password}
 	 */
-	async signIn(undefined, payload) {
+	async signIn({ commit }, payload) {
 		const res = await apolloClient.query({
 			query: SIGN_IN,
 			variables: {
@@ -54,8 +54,13 @@ const actions: ActionTree<ProfileState, RootState> = {
 
 		console.log(res);
 
-		localStorage.setItem('uid', res.data.login.token);
-		localStorage.setItem('access_token', res.data.login.userId);
+		localStorage.setItem('uid', res.data.login.userId);
+		localStorage.setItem('access_token', res.data.login.token);
+
+		commit('setProfile', {
+			_id: res.data.login.userId,
+			email: 'test'
+		});
 		// this.dispatch('authenticate/fetchProfile');
 	},
 
