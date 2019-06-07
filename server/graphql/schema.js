@@ -2,56 +2,22 @@ const {
   buildSchema
 } = require('graphql');
 
+const UserType = require('./types/User');
+const AuthDataType = require('./types/AuthData');
+const ProductType = require('./types/Product');
+
+const UserInputData = require('./inputs/UserInputData');
+const UserEditInputData = require('./inputs/UserEditInputData');
+const ProductInputData = require('./inputs/ProductInputData');
+
 module.exports = buildSchema(`
-  type User {
-    _id: ID!
-    slug: String
-    email: String!
-    phone: String!
-    website: String!
-    facebook: String!
-    instagram: String!
-    vkontakte: String!
-    firstname: String!
-    lastname: String!
-    avatar: String!
-    content: String!
-    isActive: Boolean!
-    subscribers: [User!]!
-    subscriptions: [User!]!
-    password: String!
-    products: [Product!]!
-  }
+  ${UserType}
+  ${AuthDataType}
+  ${ProductType}
 
-  type AuthData {
-    token: String!
-    userId: String!
-  }
-
-  type Product {
-    _id: ID!
-    slug: String!
-    title: String!
-    content: String!
-    imageUrl: String!
-    price: Int!
-    creator: User!
-    createdAt: String!
-    updatedAt: String!
-  }
-
-  input UserInputData {
-    email: String!
-    password: String!
-  }
-
-  input ProductInputData {
-    slug: String!
-    title: String!
-    content: String!
-    imageUrl: String!
-    price: Int!
-  }
+  ${UserInputData}
+  ${UserEditInputData}
+  ${ProductInputData}
 
   type RootQuery {
     queryProfile(token: String!): User!
@@ -60,6 +26,7 @@ module.exports = buildSchema(`
 
   type RootMutation {
     createUser(userInput: UserInputData): User!
+    editUser(userInput: UserEditInputData): User!
     createProduct(productInput: ProductInputData): Product!
   }
 

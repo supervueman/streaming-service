@@ -67,14 +67,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { Getter } from "vuex-class";
+import { Action, Getter } from "vuex-class";
 
 @Component
 export default class Profile extends Vue {
   @Getter("getProfile", { namespace: "authenticate" }) profile: string;
+  @Action("editProfile", { namespace: "profile" }) editProfile: any;
 
   save() {
     console.log(this.profile);
+    this.editProfile(this.profile);
   }
 }
 </script>

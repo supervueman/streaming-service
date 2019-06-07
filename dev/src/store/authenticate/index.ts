@@ -1,9 +1,9 @@
 import { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
 import { ProfileState, RootState, RequestDataInterface } from '../../types';
 import axios from 'axios';
-import router from '../../routers';
-
 import requestDataHandler from '../../plugins/requestDataHandler';
+
+import router from '../../routers';
 
 import { apolloClient } from '../../plugins/apolloProvider';
 import { SIGN_UP } from '../../graphql/signUp';
@@ -72,6 +72,8 @@ const actions: ActionTree<ProfileState, RootState> = {
 			email: 'test'
 		});
 		await this.dispatch('authenticate/fetchProfile');
+
+		router.push('/profile');
 	},
 
 	async fetchProfile({ commit }) {
@@ -83,31 +85,55 @@ const actions: ActionTree<ProfileState, RootState> = {
 		});
 
 		commit('setProfile', res.data.queryProfile);
+		if (
+			router.app.$route.name === 'signin' ||
+			router.app.$route.name === 'signup'
+		) {
+			router.push('/profile');
+		}
 	},
 
 	async logout({ commit }) {
-		const data: RequestDataInterface = requestDataHandler(
-			'POST',
-			'/user/logout',
-			null,
-			null,
-			null
-		);
+		// const data: RequestDataInterface = requestDataHandler(
+		// 	'POST',
+		// 	'/user/logout',
+		// 	null,
+		// 	null,
+		// 	null
+		// );
 
-		const res: any = await axios(data).catch(err => {
-			console.error(err);
+		// const res: any = await axios(data).catch(err => {
+		// 	console.error(err);
+		// });
+
+		// if (res) {
+		// 	if (res.status === 200) {
+		// 		localStorage.removeItem('access_token');
+		// 		commit('setProfile', {
+		// 			_id: '',
+		// 			email: ''
+		// 		});
+
+		// 	}
+		// }
+		localStorage.removeItem('access_token');
+		localStorage.removeItem('uid');
+		commit('setProfile', {
+			_id: '',
+			slug: '',
+			email: '',
+			phone: '',
+			website: '',
+			facebook: '',
+			vkontakte: '',
+			instagram: '',
+			firstname: '',
+			lastname: '',
+			avatar: '',
+			content: '',
+			isActive: false
 		});
-
-		if (res) {
-			if (res.status === 200) {
-				localStorage.removeItem('access_token');
-				commit('setProfile', {
-					_id: '',
-					email: ''
-				});
-				router.push('/');
-			}
-		}
+		router.push('/');
 	}
 };
 

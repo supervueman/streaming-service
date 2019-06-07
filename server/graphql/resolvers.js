@@ -98,7 +98,6 @@ module.exports = {
   },
 
   queryProfile: async function (token, req) {
-    console.log(req.isAuth)
     if (!req.isAuth) {
       const error = new Error('Not authenticated!');
       error.code = 401;
@@ -112,12 +111,24 @@ module.exports = {
       throw error;
     }
 
-    console.log(user)
-
     return {
       ...user._doc,
       _id: user._id.toString()
     }
+  },
+
+  editUser: async function ({
+    userInput
+  }, req) {
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
+
+    const user = User.findById(req.userId);
+
+    console.log(user);
   },
 
   createProduct: async function ({
@@ -165,7 +176,8 @@ module.exports = {
       content: productInput.content,
       imageUrl: productInput.imageUrl,
       price: productInput.price,
-      creator: user
+      creator: user,
+      isActice: false
     });
 
     const createdProduct = await product.save();
