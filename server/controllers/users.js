@@ -1,7 +1,7 @@
 const User = require('../models/user');
 
 module.exports = {
-  users: async function (args, req) {
+  queryUsers: async function (args, req) {
     if (!req.isAuth) {
       const error = new Error('Not authenticated!');
       error.code = 401;

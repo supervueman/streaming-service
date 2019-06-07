@@ -26,7 +26,8 @@ module.exports = buildSchema(`
   type RootQuery {
     queryProfile(token: String!): Profile!
     login(email: String!, password: String!): AuthData!
-    users: UsersData!
+    queryUsers: UsersData!
+    queryUser(userId: String!): User!
   }
 
   type RootMutation {

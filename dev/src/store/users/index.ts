@@ -28,7 +28,7 @@ const actions: ActionTree<UsersState, RootState> = {
 			query: QUERY_USERS
 		});
 
-		commit('setUsers', res.data.users);
+		commit('setUsers', res.data.queryUsers);
 	}
 };
 

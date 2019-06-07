@@ -34,12 +34,13 @@ const actions: ActionTree<UserState, RootState> = {
 	 */
 	async fetchUser({ commit }, payload) {
 		const res: any = await apolloClient.query({
-			query: QUERY_USER
+			query: QUERY_USER,
+			variables: {
+				userId: payload
+			}
 		});
 
-		console.log(res);
-
-		commit('setUser', res.data.user);
+		commit('setUser', res.data.queryUser);
 	}
 };
 

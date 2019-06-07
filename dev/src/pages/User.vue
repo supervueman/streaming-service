@@ -6,7 +6,7 @@
         tag="form"
       )
         v-card-title
-          h1(class="title") User {{$route.params.id}}
+          h1(class="title") {{user.firstname}} {{user.lastname}}
         v-card-text
           v-text-field(
             v-model="user.firstname"
@@ -63,22 +63,15 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
+import { UserInterface } from "../types";
 
 @Component
 export default class User extends Vue {
-  get user() {
-    return {
-      firstname: "",
-      lastname: "",
-      email: "",
-      phone: "",
-      website: "",
-      facebook: "",
-      instagram: "",
-      vkontakte: "",
-      avatar: "",
-      content: ""
-    };
+  @Getter("getUser", { namespace: "user" }) user: UserInterface;
+  @Action("fetchUser", { namespace: "user" }) fetchUser: any;
+
+  async mounted() {
+    await this.fetchUser(this.$route.params.id);
   }
 }
 </script>
