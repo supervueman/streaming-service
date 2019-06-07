@@ -23,5 +23,10 @@ export default [
 		path: '/add-product',
 		name: 'add-product',
 		component: 'AddProduct'
+	},
+	{
+		path: '/users',
+		name: 'users',
+		component: 'Users'
 	}
 ];

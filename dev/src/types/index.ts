@@ -60,3 +60,9 @@ export interface ProductInterface {
 export interface ProductState {
 	product: ProductInterface;
 }
+
+// Types all users
+
+export interface UsersState {
+	users?: ProfileInterface[];
+}

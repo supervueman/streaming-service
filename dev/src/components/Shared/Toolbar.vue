@@ -3,6 +3,7 @@
     v-toolbar-title.mr-3 TEMPLATE
     v-toolbar-items(class="hidden-xs-and-down" v-if="profileId !== ''")
       v-btn(flat to="/add-product") Add product
+      v-btn(flat to="/users") Users
     v-spacer
     v-toolbar-items(class="hidden-xs-and-down" v-if="profileId === ''")
       v-btn(flat to="/signin") Login
