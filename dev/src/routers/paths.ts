@@ -28,5 +28,10 @@ export default [
 		path: '/users',
 		name: 'users',
 		component: 'Users'
+	},
+	{
+		path: '/users/:id',
+		name: 'user',
+		component: 'User'
 	}
 ];
