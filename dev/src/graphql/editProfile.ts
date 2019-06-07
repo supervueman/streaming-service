@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const EDIT_PROFILE = gql`
 	mutation editUser(
-		$slug: String!
+		$slug: String
 		$email: String!
 		$phone: String!
 		$website: String!
@@ -13,7 +13,6 @@ export const EDIT_PROFILE = gql`
 		$lastname: String!
 		$avatar: String!
 		$content: String!
-		$isActive: Boolean
 	) {
 		editUser(
 			userInput: {
@@ -28,7 +27,6 @@ export const EDIT_PROFILE = gql`
 				lastname: $lastname
 				avatar: $avatar
 				content: $content
-				isActive: $isActive
 			}
 		) {
 			_id
@@ -43,7 +41,6 @@ export const EDIT_PROFILE = gql`
 			lastname
 			avatar
 			content
-			isActive
 		}
 	}
 `;

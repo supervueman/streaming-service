@@ -34,6 +34,11 @@
           required
         )
         v-text-field(
+          v-model="profile.website"
+          label="Website:"
+          required
+        )
+        v-text-field(
           v-model="profile.facebook"
           label="Facebook:"
           required
@@ -75,7 +80,6 @@ export default class Profile extends Vue {
   @Action("editProfile", { namespace: "profile" }) editProfile: any;
 
   save() {
-    console.log(this.profile);
     this.editProfile(this.profile);
   }
 }

@@ -19,7 +19,6 @@ import { EDIT_PROFILE } from '../../graphql/editProfile';
 // 		lastname: '',
 // 		avatar: '',
 // 		content: '',
-// 		isActive: false
 // 	}
 // };
 
@@ -49,8 +48,7 @@ const actions: ActionTree<ProfileState, RootState> = {
 				firstname: payload.firstname,
 				lastname: payload.lastname,
 				avatar: payload.avatar,
-				content: payload.content,
-				isActive: true
+				content: payload.content
 			}
 		});
 

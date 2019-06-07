@@ -23,8 +23,7 @@ const state: ProfileState = {
 		firstname: '',
 		lastname: '',
 		avatar: '',
-		content: '',
-		isActive: false
+		content: ''
 	}
 };
 
@@ -130,8 +129,7 @@ const actions: ActionTree<ProfileState, RootState> = {
 			firstname: '',
 			lastname: '',
 			avatar: '',
-			content: '',
-			isActive: false
+			content: ''
 		});
 		router.push('/');
 	}

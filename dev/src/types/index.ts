@@ -38,7 +38,6 @@ export interface ProfileInterface {
 	lastname: string;
 	avatar?: string;
 	content?: string;
-	isActive?: boolean;
 }
 
 export interface ProfileState {

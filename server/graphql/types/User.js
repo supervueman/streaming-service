@@ -12,7 +12,6 @@ module.exports = `
     lastname: String!
     avatar: String!
     content: String!
-    isActive: Boolean!
     subscribers: [User!]!
     subscriptions: [User!]!
     password: String!

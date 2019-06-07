@@ -51,7 +51,6 @@ module.exports = {
       lastname: '',
       avatar: '',
       content: '',
-      isActive: true,
       password: hashedPw
     });
 
@@ -87,7 +86,7 @@ module.exports = {
       userId: user._id.toString(),
       email: user.email
     }, 'somesupersecretesecrete', {
-      expiresIn: '1h'
+      expiresIn: '5h'
     });
 
     return {
@@ -125,8 +124,37 @@ module.exports = {
       throw error;
     }
 
-    const user = User.findById(req.userId);
+    const user = await User.findById(req.userId);
 
-    console.log(user);
+    user.slug = userInput.slug;
+    user.email = userInput.email;
+    user.phone = userInput.phone;
+    user.website = userInput.website;
+    user.facebook = userInput.facebook;
+    user.instagram = userInput.instagram;
+    user.vkontakte = userInput.vkontakte;
+    user.firstname = userInput.firstname;
+    user.lastname = userInput.lastname;
+    user.avatar = userInput.avatar;
+    user.content = userInput.content;
+
+    await user.save();
+
+    user.password = '';
+
+    return {
+      _id: user._id.toString(),
+      slug: user.slug,
+      email: user.email,
+      phone: user.phone,
+      website: user.website,
+      facebook: user.facebook,
+      instagram: user.instagram,
+      vkontakte: user.vkontakte,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      avatar: user.avatar,
+      content: user.content,
+    }
   },
 }

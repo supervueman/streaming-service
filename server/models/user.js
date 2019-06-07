@@ -40,9 +40,6 @@ const userSchema = new Schema({
 	avatar: {
 		type: String
 	},
-	isActive: {
-		type: Boolean
-	},
 	subscribers: [{
 		type: Schema.Types.ObjectId,
 		ref: 'User'

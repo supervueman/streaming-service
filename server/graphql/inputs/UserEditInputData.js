@@ -11,6 +11,5 @@ module.exports = `
     lastname: String!
     avatar: String!
     content: String!
-    isActive: Boolean!
   }
 `;

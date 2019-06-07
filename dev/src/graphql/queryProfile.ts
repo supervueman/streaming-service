@@ -15,7 +15,6 @@ export const QUERY_PROFILE = gql`
 			lastname
 			avatar
 			content
-			isActive
 		}
 	}
 `;
