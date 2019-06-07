@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-flex(class="mt-5")
+  v-flex.py-2.px-2
     v-card(
       class="mx-auto"
       max-width="500"
@@ -32,10 +32,15 @@
         )
       v-card-actions
         v-btn(
+          @click="remove"
+          color="error"
+          class="ml-auto mr-2 mb-2"
+        ) Remove
+        v-btn(
           @click="save"
           color="primary"
-          class="ml-auto mr-2 mb-2"
-        ) Save product  
+          class="mr-2 mb-2"
+        ) Save product
 </template>
 
 <script lang="ts">
@@ -55,6 +60,10 @@ export default class Product extends Vue {
 
   save() {
     console.log("save");
+  }
+
+  remove() {
+    console.log("remove");
   }
 }
 </script>

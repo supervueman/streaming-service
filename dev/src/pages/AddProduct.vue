@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-flex(class="mt-5")
+  v-flex.py-2.px-2
     v-card(
       class="mx-auto"
       max-width="500"
