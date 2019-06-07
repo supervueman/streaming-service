@@ -2,8 +2,9 @@
   v-toolbar(app dark class="primary")
     v-toolbar-title.mr-3 TEMPLATE
     v-toolbar-items(class="hidden-xs-and-down" v-if="profileId !== ''")
-      v-btn(flat to="/add-product") Add product
       v-btn(flat to="/users") Users
+      v-btn(flat to="/streams") Streams
+      v-btn(flat to="/add-product") Add product
     v-spacer
     v-toolbar-items(class="hidden-xs-and-down" v-if="profileId === ''")
       v-btn(flat to="/signin") Login

@@ -33,5 +33,10 @@ export default [
 		path: '/users/:id',
 		name: 'user',
 		component: 'User'
+	},
+	{
+		path: '/streams',
+		name: 'streams',
+		component: 'Streams'
 	}
 ];
