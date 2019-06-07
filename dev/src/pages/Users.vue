@@ -8,19 +8,30 @@
       v-card-text
         v-layout.row.wrap(fill-height align-start justify-start)
           user-card.xl3.lg3.md3.sm2.xs2(
-            firstname="Rinat"
-            lastname="Davlikamov"
-            avatar="avatar.jpg"
-            email="supervueman@gmail.com"
-            phone="+7 (937) 078-08-30"
-            id="1"
+            v-for="user in users"
+            :key="user._id"
+            :id="user._id"
+            :firstname="user.firstname"
+            :lastname="user.lastname"
+            :avatar="user.avatar"
+            :email="user.email"
+            :phone="user.phone"
           )
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
+import { UserCardInterface } from "../types";
 
 @Component
-export default class Users extends Vue {}
+export default class Users extends Vue {
+  @Getter("getUsers", { namespace: "users" }) users: UserCardInterface[];
+  @Getter("getCount", { namespace: "users" }) count: number;
+  @Action("fetchUsers", { namespace: "users" }) fetchUsers: any;
+
+  async mounted() {
+    await this.fetchUsers();
+  }
+}
 </script>

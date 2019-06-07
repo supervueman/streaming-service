@@ -24,7 +24,6 @@ export interface RequestDataInterface {
 }
 
 // Types for authntication
-
 export interface ProfileInterface {
 	_id: string;
 	email: string;
@@ -44,7 +43,6 @@ export interface ProfileState {
 }
 
 // Types for product
-
 export interface ProductInterface {
 	_id: string;
 	title: string;
@@ -60,7 +58,22 @@ export interface ProductState {
 }
 
 // Types all users
+export interface UserCardInterface {
+	_id: string;
+	firstname: string;
+	lastname: string;
+	avatar: string;
+	email: string;
+	phone: string;
+}
+
+export interface UserCardState {
+	userCard: UserCardInterface;
+}
 
 export interface UsersState {
-	users?: ProfileInterface[];
+	users: {
+		users: UserCardInterface[];
+		count: 0;
+	};
 }

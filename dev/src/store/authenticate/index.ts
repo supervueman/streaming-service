@@ -92,28 +92,6 @@ const actions: ActionTree<ProfileState, RootState> = {
 	},
 
 	async logout({ commit }) {
-		// const data: RequestDataInterface = requestDataHandler(
-		// 	'POST',
-		// 	'/user/logout',
-		// 	null,
-		// 	null,
-		// 	null
-		// );
-
-		// const res: any = await axios(data).catch(err => {
-		// 	console.error(err);
-		// });
-
-		// if (res) {
-		// 	if (res.status === 200) {
-		// 		localStorage.removeItem('access_token');
-		// 		commit('setProfile', {
-		// 			_id: '',
-		// 			email: ''
-		// 		});
-
-		// 	}
-		// }
 		localStorage.removeItem('access_token');
 		localStorage.removeItem('uid');
 		commit('setProfile', {
