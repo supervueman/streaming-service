@@ -1,7 +1,6 @@
 module.exports = `
   type User {
     _id: ID!
-    slug: String
     email: String!
     phone: String!
     website: String!

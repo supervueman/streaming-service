@@ -8,10 +8,6 @@ const userSchema = new Schema({
 		unique: true,
 		match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 	},
-	slug: {
-		type: String,
-		unique: true
-	},
 	phone: {
 		type: String
 	},

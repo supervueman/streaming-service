@@ -43,5 +43,15 @@ export default [
 		path: '/streams/:id',
 		name: 'stream',
 		component: 'Stream'
+	},
+	{
+		path: '/products',
+		name: 'products',
+		component: 'Products'
+	},
+	{
+		path: '/products/:id',
+		name: 'product',
+		component: 'Product'
 	}
 ];

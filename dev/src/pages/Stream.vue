@@ -2,7 +2,6 @@
   v-flex.py-2.px-2
     v-card(
       class="mx-auto"
-      tag="form"
     )
       v-card-title Product {{$route.params.id}}
 </template>

@@ -7,7 +7,7 @@
       @keyup.enter="save"
     )
       v-card-title
-        h1(class="title") Add product
+        h1(class="title") Product {{$route.params.id}}
       v-card-text
         v-text-field(
           v-model="product.title"
@@ -31,33 +31,30 @@
           required
         )
       v-card-actions
-        //- router-link(to="/reset-password" class="ml-2") Забыли пароль?
         v-btn(
           @click="save"
           color="primary"
           class="ml-auto mr-2 mb-2"
-        ) Add product
+        ) Save product  
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { Action } from "vuex-class";
-import { ProductInterface } from "../types";
+import { Action, Getter } from "vuex-class";
 
 @Component
-export default class AddProduct extends Vue {
-  private product = {
-    title: "",
-    content: "",
-    imageUrl: "",
-    price: 0
-  };
-
-  @Action("addProduct", { namespace: "product" }) addProduct: any;
+export default class Product extends Vue {
+  get product() {
+    return {
+      title: "",
+      content: "",
+      price: 0,
+      imageUrl: ""
+    };
+  }
 
   save() {
-    this.product.price = Number(this.product.price);
-    this.addProduct(this.product);
+    console.log("save");
   }
 }
 </script>

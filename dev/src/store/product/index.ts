@@ -7,7 +7,6 @@ import { CREATE_PRODUCT } from '../../graphql/createProduct';
 const state: ProductState = {
 	product: {
 		_id: '',
-		slug: '',
 		title: '',
 		content: '',
 		imageUrl: '',
@@ -27,21 +26,18 @@ const actions: ActionTree<ProductState, RootState> = {
 	/**
 	 * @function addProduct
 	 * @async
-	 * @param {Object} payload {slug, title, content, imageUrl, price}
+	 * @param {Object} payload {title, content, imageUrl, price}
 	 */
 	async addProduct(undefined, payload) {
 		const product = await apolloClient.mutate({
 			mutation: CREATE_PRODUCT,
 			variables: {
-				slug: payload.slug,
 				title: payload.title,
 				content: payload.content,
 				imageUrl: payload.imageUrl,
 				price: payload.price
 			}
 		});
-
-		console.log(product, '_______FROM STORE');
 	}
 };
 

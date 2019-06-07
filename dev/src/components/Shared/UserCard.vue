@@ -45,10 +45,5 @@ export default class UserCard extends Vue {
     default: ""
   })
   private id: string;
-
-  @Prop({
-    default: ""
-  })
-  private slug: string;
 }
 </script>

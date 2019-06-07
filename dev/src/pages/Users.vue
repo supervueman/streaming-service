@@ -2,7 +2,6 @@
   v-flex(class="mt-5")
     v-card(
       class="mx-auto"
-      tag="form"
     )
       v-card-title
         h1(class="title") Users
@@ -15,7 +14,6 @@
             email="supervueman@gmail.com"
             phone="+7 (937) 078-08-30"
             id="1"
-            slug="supervueman"
           )
 </template>
 

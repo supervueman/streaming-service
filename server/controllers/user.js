@@ -126,7 +126,6 @@ module.exports = {
 
     const user = await User.findById(req.userId);
 
-    user.slug = userInput.slug;
     user.email = userInput.email;
     user.phone = userInput.phone;
     user.website = userInput.website;
@@ -144,7 +143,6 @@ module.exports = {
 
     return {
       _id: user._id.toString(),
-      slug: user.slug,
       email: user.email,
       phone: user.phone,
       website: user.website,

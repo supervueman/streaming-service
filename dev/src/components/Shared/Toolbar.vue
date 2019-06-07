@@ -5,6 +5,7 @@
       v-btn(flat to="/users") Users
       v-btn(flat to="/streams") Streams
       v-btn(flat to="/add-product") Add product
+      v-btn(flat to="/products") Products
     v-spacer
     v-toolbar-items(class="hidden-xs-and-down" v-if="profileId === ''")
       v-btn(flat to="/signin") Login

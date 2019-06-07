@@ -1,6 +1,5 @@
 module.exports = `
   input UserEditInputData {
-    slug: String
     email: String!
     phone: String!
     website: String!

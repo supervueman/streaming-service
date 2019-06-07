@@ -27,7 +27,6 @@ export interface RequestDataInterface {
 
 export interface ProfileInterface {
 	_id: string;
-	slug: string;
 	email: string;
 	phone?: string;
 	website?: string;
@@ -48,7 +47,6 @@ export interface ProfileState {
 
 export interface ProductInterface {
 	_id: string;
-	slug: string;
 	title: string;
 	content: string;
 	imageUrl: string;

@@ -13,7 +13,6 @@ import { QUERY_PROFILE } from '../../graphql/queryProfile';
 const state: ProfileState = {
 	profile: {
 		_id: '',
-		slug: '',
 		email: '',
 		phone: '',
 		website: '',
@@ -119,7 +118,6 @@ const actions: ActionTree<ProfileState, RootState> = {
 		localStorage.removeItem('uid');
 		commit('setProfile', {
 			_id: '',
-			slug: '',
 			email: '',
 			phone: '',
 			website: '',

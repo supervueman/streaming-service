@@ -44,7 +44,6 @@ module.exports = {
     }
 
     const product = new Product({
-      slug: productInput.slug,
       title: productInput.title,
       content: productInput.content,
       imageUrl: productInput.imageUrl,

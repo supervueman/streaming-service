@@ -9,11 +9,6 @@
         h1(class="title") Profile
       v-card-text
         v-text-field(
-          v-model="profile.slug"
-          label="Slug:"
-          required
-        )
-        v-text-field(
           v-model="profile.firstname"
           label="Firstname:"
           required

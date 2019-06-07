@@ -4,16 +4,14 @@
       class="mx-auto"
     )
       v-card-title
-        h1(class="title") Streams
+        h1(class="title") Products
       v-card-text
         v-layout.row.wrap(fill-height align-start justify-start)
-          stream-card.xl3.lg3.md3.sm2.xs2(
-            firstname="Rinat"
-            lastname="Davlikamov"
+          product-card.xl3.lg3.md3.sm2.xs2(
             id="1"
-            streamerId="1"
             imageUrl="avatar.jpg"
             title="Product"
+            :price="12"
           )
 </template>
 
@@ -22,5 +20,5 @@ import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 
 @Component
-export default class Streams extends Vue {}
+export default class Products extends Vue {}
 </script>
