@@ -5,8 +5,7 @@
         :src="`/static/${imageUrl}`"
         aspect-ratio="1"
       )
-      v-flex.px-2 {{title}}
-      v-flex Price: {{price}}
+      v-flex.px-2 Product: {{title}}
       v-flex Streamer: 
         router-link(:to="`/users/${streamerId}`") {{firstname}} {{lastname}}
 </template>
@@ -31,12 +30,6 @@ export default class StreamCard extends Vue {
     default: ""
   })
   private title: string;
-
-  @Prop({
-    default: 0,
-    required: true
-  })
-  private price: number;
 
   @Prop({
     default: "",

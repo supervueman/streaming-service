@@ -15,12 +15,12 @@
             streamerId="1"
             imageUrl="avatar.jpg"
             title="Product"
-            :price="12"
           )
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
 
 @Component
 export default class Streams extends Vue {}
