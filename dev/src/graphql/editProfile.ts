@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const EDIT_PROFILE = gql`
-	mutation editUser(
+	mutation editProfile(
 		$email: String!
 		$phone: String!
 		$website: String!
@@ -13,7 +13,7 @@ export const EDIT_PROFILE = gql`
 		$avatar: String!
 		$content: String!
 	) {
-		editUser(
+		editProfile(
 			userInput: {
 				email: $email
 				phone: $phone

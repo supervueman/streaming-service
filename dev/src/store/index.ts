@@ -5,6 +5,7 @@ import { authenticate } from './authenticate';
 import { product } from './product';
 import { profile } from './profile';
 import { users } from './users';
+import { user } from './user';
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ export const store = new Vuex.Store({
 		authenticate,
 		profile,
 		product,
-		users
+		users,
+		user
 	}
 });

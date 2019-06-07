@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 module.exports = {
-  createUser: async function ({
+  createProfile: async function ({
     userInput
   }, req) {
     const errors = [];
@@ -115,7 +115,7 @@ module.exports = {
     }
   },
 
-  editUser: async function ({
+  editProfile: async function ({
     userInput
   }, req) {
     if (!req.isAuth) {

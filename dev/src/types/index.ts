@@ -77,3 +77,21 @@ export interface UsersState {
 		count: 0;
 	};
 }
+
+export interface UserInterface {
+	_id: string;
+	firstname?: string;
+	lastname?: string;
+	avatar?: string;
+	email: string;
+	phone?: string;
+	website?: string;
+	facebook?: string;
+	instagram?: string;
+	vkontakte?: string;
+	content?: string;
+}
+
+export interface UserState {
+	user: UserInterface;
+}

@@ -1,5 +1,6 @@
 module.exports = `
-  input UserEditInputData {
+  type Profile {
+    _id: ID!
     email: String!
     phone: String!
     website: String!
@@ -10,5 +11,9 @@ module.exports = `
     lastname: String!
     avatar: String!
     content: String!
+    subscribers: [User!]!
+    subscriptions: [User!]!
+    password: String!
+    products: [Product!]!
   }
 `;

@@ -5,7 +5,7 @@ module.exports = `
     content: String!
     imageUrl: String!
     price: Int!
-    creator: User!
+    creator: Profile!
     isActive: Boolean!
     createdAt: String!
     updatedAt: String!

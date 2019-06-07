@@ -1,5 +1,5 @@
 module.exports = `
-  input UserInputData {
+  input ProfileInputData {
     email: String!
     password: String!
   }

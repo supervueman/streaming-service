@@ -2,34 +2,36 @@ const {
   buildSchema
 } = require('graphql');
 
-const UserType = require('./types/User');
+const ProfileType = require('./types/Profile');
 const AuthDataType = require('./types/AuthData');
 const ProductType = require('./types/Product');
 const UsersType = require('./types/Users');
+const UserType = require('./types/user');
 
-const UserInputData = require('./inputs/UserInputData');
-const UserEditInputData = require('./inputs/UserEditInputData');
+const ProfileInputData = require('./inputs/ProfileInputData');
+const ProfileEditInputData = require('./inputs/ProfileEditInputData');
 const ProductInputData = require('./inputs/ProductInputData');
 
 module.exports = buildSchema(`
-  ${UserType}
+  ${ProfileType}
   ${AuthDataType}
   ${ProductType}
   ${UsersType}
+  ${UserType}
 
-  ${UserInputData}
-  ${UserEditInputData}
+  ${ProfileInputData}
+  ${ProfileEditInputData}
   ${ProductInputData}
 
   type RootQuery {
-    queryProfile(token: String!): User!
+    queryProfile(token: String!): Profile!
     login(email: String!, password: String!): AuthData!
     users: UsersData!
   }
 
   type RootMutation {
-    createUser(userInput: UserInputData): User!
-    editUser(userInput: UserEditInputData): User!
+    createProfile(userInput: ProfileInputData): Profile!
+    editProfile(userInput: ProfileEditInputData): Profile!
     createProduct(productInput: ProductInputData): Product!
   }
 
