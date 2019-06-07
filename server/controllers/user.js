@@ -1,115 +1,132 @@
-const User = require('../models/user');
-const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const validator = require('validator');
 const jwt = require('jsonwebtoken');
 
-/**
- * @module
- * @function signup
- * @var {Object} user
- * @var {Object} result
- */
-exports.signup = (req, res, next) => {
-	bcrypt.hash(req.body.password, 10, async (err, hash) => {
-		const user = new User({
-			_id: new mongoose.Types.ObjectId(),
-			email: req.body.email,
-			password: hash
-		});
+const User = require('../models/user');
 
-		const result = await user.save();
+module.exports = {
+  createUser: async function ({
+    userInput
+  }, req) {
+    const errors = [];
+    if (!validator.isEmail(userInput.email)) {
+      errors.push({
+        message: 'E-mail in invalid!'
+      })
+    }
 
-		if (result._id) {
-			return res.status(201).json({
-				message: 'Reqistration success'
-			});
-		}
-		res.status(500).send({
-			error: err
-		});
-	});
-};
+    if (validator.isEmpty(userInput.password) || !validator.isLength(userInput.password, {
+        min: 5
+      })) {
+      errors.push({
+        message: 'Password short!'
+      });
+    }
 
-exports.signin = async (req, res, next) => {
-	const user = await User.findOne({
-		email: req.body.email
-	}).exec();
+    if (errors.length > 0) {
+      const error = new Error('Invalid input');
+      error.data = errors;
+      error.code = 422;
+      throw error;
+    }
 
-	if (!user) {
-		return res.status(401).send({
-			message: 'Auth failed'
-		});
-	}
+    const existingUser = await User.findOne({
+      email: userInput.email
+    });
 
-	bcrypt.compare(req.body.password, user.password, (err, result) => {
-		if (err !== undefined) {
-			return res.status(401).send({
-				message: 'Auth failed'
-			});
-		}
+    if (existingUser) {
+      const error = new Error('User exists already');
+      throw error;
+    }
 
-		if (result) {
-			const token = jwt.sign({
-					userId: user._id
-				},
-				'stopsecretkeyahtung', {
-					expiresIn: '1h'
-				}
-			);
+    const hashedPw = await bcrypt.hash(userInput.password, 12);
+    const user = new User({
+      email: userInput.email,
+      phone: '',
+      website: '',
+      facebook: '',
+      instagram: '',
+      vkontakte: '',
+      firstname: '',
+      lastname: '',
+      avatar: '',
+      content: '',
+      isActive: true,
+      password: hashedPw
+    });
 
-			user.password = '';
+    const createdUser = await user.save();
 
-			return res.status(200).send({
-				message: 'Auth successful',
-				token: token
-			});
-		} else {
-			return res.status(401).send({
-				message: 'Auth failed'
-			});
-		}
+    return {
+      ...createdUser._doc,
+      _id: createdUser._id.toString()
+    };
+  },
 
-	});
-	res.status(500).send({
-		error: err
-	});
-};
+  login: async function ({
+    email,
+    password
+  }) {
+    const user = await User.findOne({
+      email
+    })
+    if (!user) {
+      const error = new Error('User not found!');
+      error.code = 401;
+      throw error;
+    }
 
-exports.logout = (req, res) => {
-	res.status(200).send({
-		auth: false,
-		token: null
-	});
-};
+    const isEqual = await bcrypt.compare(password, user.password);
+    if (!isEqual) {
+      const error = new Error('Password is not correct!');
+      error.code = 401;
+      throw error;
+    }
 
-exports.profile = (req, res) => {
-	const token = req.headers['x-access-token'];
-	if (token === null) {
-		return res.status(401).send({
-			auth: false,
-			message: 'No token provided.'
-		});
-	}
+    const token = jwt.sign({
+      userId: user._id.toString(),
+      email: user.email
+    }, 'somesupersecretesecrete', {
+      expiresIn: '1h'
+    });
 
-	jwt.verify(token, 'stopsecretkeyahtung', async (err, decoded) => {
-		if (err) {
-			return res
-				.status(422)
-				.send({
-					auth: false,
-					message: 'Failed to authenticate token.'
-				});
-		}
+    return {
+      token,
+      userId: user._id.toString()
+    }
+  },
 
-		await User.findById(decoded.userId, (err, user) => {
-			if (err) {
-				return res.status(500).send('There was a problem finding the user.');
-			}
-			if (!user) {
-				return res.status(404).send('No user found.');
-			}
-			user.password = '';
-			res.status(200).send(user);
-		});
-	});
-};
+  queryProfile: async function (token, req) {
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
+
+    const user = await User.findById(req.userId);
+    if (!user) {
+      const error = new Error('Invalid input');
+      error.code = 401;
+      throw error;
+    }
+
+    return {
+      ...user._doc,
+      _id: user._id.toString()
+    }
+  },
+
+  editUser: async function ({
+    userInput
+  }, req) {
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
+
+    const user = User.findById(req.userId);
+
+    console.log(user);
+  },
+}
