@@ -42,21 +42,6 @@ export interface ProfileState {
 	profile: ProfileInterface;
 }
 
-// Types for product
-export interface ProductInterface {
-	_id: string;
-	title: string;
-	content: string;
-	imageUrl: string;
-	price: number;
-	createdAt: string;
-	updatedAt: string;
-}
-
-export interface ProductState {
-	product: ProductInterface;
-}
-
 // Types all users
 export interface UserCardInterface {
 	_id: string;
@@ -94,4 +79,32 @@ export interface UserInterface {
 
 export interface UserState {
 	user: UserInterface;
+}
+
+// Types for product
+export interface ProductCardInterface {
+	_id: string;
+	title: string;
+	imageUrl: string;
+	price: number;
+}
+
+export interface ProductsState {
+	products: {
+		products: ProductCardInterface[];
+		count: number;
+	};
+}
+
+export interface ProductState {
+	product: ProductInterface;
+}
+
+export interface ProductInterface {
+	_id: string;
+	title: string;
+	content: string;
+	imageUrl: string;
+	price: number;
+	updatedAt: string;
 }

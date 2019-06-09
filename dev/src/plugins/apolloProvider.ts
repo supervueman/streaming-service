@@ -11,7 +11,9 @@ const httpLink: any = new HttpLink({
 });
 
 // Cache implementation
-const cache: any = new InMemoryCache();
+const cache: any = new InMemoryCache({
+	addTypename: false
+});
 
 const authLink = setContext((_, { headers }) => {
 	// get the authentication token from local storage if it exists
