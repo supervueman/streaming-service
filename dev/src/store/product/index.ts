@@ -52,7 +52,7 @@ const actions: ActionTree<ProductState, RootState> = {
 		const res: any = await apolloClient.query({
 			query: QUERY_PRODUCT,
 			variables: {
-				prodId: payload
+				id: payload
 			}
 		});
 

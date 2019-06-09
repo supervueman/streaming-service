@@ -33,7 +33,7 @@ module.exports = buildSchema(`
     queryUsers: UsersData!
     queryUser(id: ID!): User!
     queryProducts: ProductsData!
-    queryProduct(prodId: String!): Product!
+    queryProduct(id: ID!): Product!
   }
 
   type RootMutation {

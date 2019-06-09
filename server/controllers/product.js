@@ -62,14 +62,16 @@ module.exports = {
     }
   },
 
-  queryProduct: async function (prodId, req) {
+  queryProduct: async function ({
+    id
+  }, req) {
     if (!req.isAuth) {
       const error = new Error('Not authenticated!');
       error.code = 401;
       throw error;
     }
 
-    const product = await Product.findById(prodId.prodId);
+    const product = await Product.findById(id);
 
     if (!product) {
       const error = new Error('Invalid input');
