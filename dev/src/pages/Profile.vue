@@ -74,8 +74,8 @@ export default class Profile extends Vue {
   @Getter("getProfile", { namespace: "authenticate" }) profile: string;
   @Action("editProfile", { namespace: "profile" }) editProfile: any;
 
-  save() {
-    this.editProfile(this.profile);
+  async save() {
+    await this.editProfile(this.profile);
   }
 }
 </script>

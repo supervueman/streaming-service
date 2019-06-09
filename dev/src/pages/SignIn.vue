@@ -40,12 +40,12 @@ export default class Signin extends Vue {
 
   @Action("signIn", { namespace: "authenticate" }) signInAction: any;
 
-  signIn() {
+  async signIn() {
     const data: Object = {
       password: this.password,
       email: this.email
     };
-    this.signInAction(data);
+    await this.signInAction(data);
   }
 }
 </script>

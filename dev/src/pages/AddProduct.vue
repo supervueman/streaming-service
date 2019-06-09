@@ -55,9 +55,9 @@ export default class AddProduct extends Vue {
 
   @Action("addProduct", { namespace: "product" }) addProduct: any;
 
-  save() {
+  async save() {
     this.product.price = Number(this.product.price);
-    this.addProduct(this.product);
+    await this.addProduct(this.product);
   }
 }
 </script>

@@ -51,7 +51,7 @@ export default class SignUp extends Vue {
       email: this.email
     };
 
-    this.signUpAction(data);
+    await this.signUpAction(data);
   }
 }
 </script>

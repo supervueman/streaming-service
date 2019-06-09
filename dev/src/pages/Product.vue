@@ -59,15 +59,13 @@ export default class Product extends Vue {
     await this.fetchProduct(this.$route.params.id);
   }
 
-  save() {
+  async save() {
     this.product.price = Number(this.product.price);
-    this.editProduct(this.product);
+    await this.editProduct(this.product);
   }
 
-  remove() {
-    console.log("remove");
-    console.log(this.product._id);
-    this.deleteProduct(this.product._id);
+  async remove() {
+    await this.deleteProduct(this.product._id);
   }
 }
 </script>
