@@ -1,29 +1,27 @@
 import gql from 'graphql-tag';
 
-export const CREATE_PRODUCT = gql`
-	mutation createProduct(
+export const EDIT_PRODUCT = gql`
+	mutation editProduct(
+		$prodId: String!
 		$title: String!
-		$content: String!
 		$imageUrl: String!
 		$price: Int!
+		$content: String!
 	) {
-		createProduct(
+		editProduct(
 			productInput: {
+				prodId: $prodId
 				title: $title
-				content: $content
 				imageUrl: $imageUrl
 				price: $price
+				content: $content
 			}
 		) {
 			_id
 			title
-			content
 			imageUrl
 			price
-			creator {
-				_id
-				email
-			}
+			content
 		}
 	}
 `;

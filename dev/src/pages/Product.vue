@@ -7,7 +7,7 @@
       @keyup.enter="save"
     )
       v-card-title
-        h1(class="title") Product {{$route.params.id}}
+        h1(class="title") Product: {{product.title}}
       v-card-text
         v-text-field(
           v-model="product.title"
@@ -46,24 +46,28 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
+import { ProductInterface } from "../types";
 
 @Component
 export default class Product extends Vue {
-  get product() {
-    return {
-      title: "",
-      content: "",
-      price: 0,
-      imageUrl: ""
-    };
+  @Getter("getProduct", { namespace: "product" }) product: ProductInterface;
+  @Action("fetchProduct", { namespace: "product" }) fetchProduct: any;
+  @Action("editProduct", { namespace: "product" }) editProduct: any;
+  @Action("deleteProduct", { namespace: "product" }) deleteProduct: any;
+
+  async mounted() {
+    await this.fetchProduct(this.$route.params.id);
   }
 
   save() {
-    console.log("save");
+    this.product.price = Number(this.product.price);
+    this.editProduct(this.product);
   }
 
   remove() {
     console.log("remove");
+    console.log(this.product._id);
+    this.deleteProduct(this.product._id);
   }
 }
 </script>

@@ -5,29 +5,6 @@ import { apolloClient } from '../../plugins/apolloProvider';
 
 import { EDIT_PROFILE } from '../../graphql/editProfile';
 
-// const state: ProfileState = {
-// 	profile: {
-// 		_id: '',
-// 		slug: '',
-// 		email: '',
-// 		phone: '',
-// 		website: '',
-// 		facebook: '',
-// 		vkontakte: '',
-// 		instagram: '',
-// 		firstname: '',
-// 		lastname: '',
-// 		avatar: '',
-// 		content: '',
-// 	}
-// };
-
-// const mutations: MutationTree<ProfileState> = {
-// 	setProfile(state, payload) {
-// 		state.profile = payload;
-// 	}
-// };
-
 const actions: ActionTree<ProfileState, RootState> = {
 	/**
 	 * @function signUp
@@ -51,21 +28,10 @@ const actions: ActionTree<ProfileState, RootState> = {
 				content: payload.content
 			}
 		});
-
-		console.log(res);
 	}
 };
 
-// const getters: GetterTree<ProfileState, RootState> = {
-// 	getProfile(state) {
-// 		return state.profile;
-// 	}
-// };
-
 export const profile: Module<ProfileState, RootState> = {
-	// state,
-	// getters,
 	actions,
-	// mutations,
 	namespaced: true
 };

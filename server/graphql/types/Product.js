@@ -6,8 +6,5 @@ module.exports = `
     imageUrl: String!
     price: Int!
     creator: Profile!
-    isActive: Boolean!
-    createdAt: String!
-    updatedAt: String!
   }
 `;

@@ -1,5 +1,6 @@
 module.exports = `
-  input ProductInputData {
+  input ProductEditInputData {
+    prodId: String!
     title: String!
     imageUrl: String!
     price: Int!

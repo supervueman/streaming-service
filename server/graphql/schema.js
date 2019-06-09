@@ -12,6 +12,7 @@ const UserType = require('./types/user');
 const ProfileInputData = require('./inputs/ProfileInputData');
 const ProfileEditInputData = require('./inputs/ProfileEditInputData');
 const ProductInputData = require('./inputs/ProductInputData');
+const ProductEditInputData = require('./inputs/ProductEditInputData');
 
 module.exports = buildSchema(`
   ${ProfileType}
@@ -24,6 +25,7 @@ module.exports = buildSchema(`
   ${ProfileInputData}
   ${ProfileEditInputData}
   ${ProductInputData}
+  ${ProductEditInputData}
 
   type RootQuery {
     queryProfile(token: String!): Profile!
@@ -31,12 +33,15 @@ module.exports = buildSchema(`
     queryUsers: UsersData!
     queryUser(userId: String!): User!
     queryProducts: ProductsData!
+    queryProduct(prodId: String!): Product!
   }
 
   type RootMutation {
     createProfile(userInput: ProfileInputData): Profile!
     editProfile(userInput: ProfileEditInputData): Profile!
     createProduct(productInput: ProductInputData): Product!
+    editProduct(productInput: ProductEditInputData): Product!
+    deleteProduct(id: String!): Boolean
   }
 
   schema {

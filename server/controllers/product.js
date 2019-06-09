@@ -49,7 +49,6 @@ module.exports = {
       imageUrl: productInput.imageUrl,
       price: productInput.price,
       creator: user,
-      isActice: false
     });
 
     const createdProduct = await product.save();
@@ -60,8 +59,88 @@ module.exports = {
     return {
       ...createdProduct._doc,
       _id: createdProduct._id.toString(),
-      createdAt: createdProduct.createdAt.toISOString(),
-      updatedAt: createdProduct.updatedAt.toISOString()
     }
+  },
+
+  queryProduct: async function (prodId, req) {
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
+
+    const product = await Product.findById(prodId.prodId);
+
+    if (!product) {
+      const error = new Error('Invalid input');
+      error.code = 401;
+      throw error;
+    }
+
+    return {
+      ...product._doc,
+      _id: product._id.toString()
+    }
+  },
+
+  editProduct: async function ({
+    productInput
+  }, req) {
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
+
+    const product = await Product.findById(productInput.prodId);
+
+    console.log(product)
+
+    product.title = productInput.title;
+    product.imageUrl = productInput.imageUrl;
+    product.price = productInput.price;
+    product.content = productInput.content;
+
+    await product.save();
+
+    return {
+      _id: product._id.toString(),
+      title: product.title,
+      imageUrl: product.imageUrl,
+      price: product.price,
+      content: product.content
+    }
+  },
+
+  deleteProduct: async function ({
+    id
+  }, req) {
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
+
+    const product = await Product.findById(id);
+
+    if (!product) {
+      const error = new Error('Invalid input');
+      error.code = 401;
+      throw error;
+    }
+
+    if (product.creator.toString() !== req.userId.toString()) {
+      const error = new Error('Not authorized!');
+      error.code = 402;
+      throw error;
+    }
+
+    await Product.findByIdAndRemove(id);
+
+    const user = await User.findById(req.userId);
+    user.products.pull(id);
+
+    await user.save();
+    return true;
   }
 }

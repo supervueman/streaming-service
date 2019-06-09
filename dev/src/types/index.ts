@@ -96,15 +96,14 @@ export interface ProductsState {
 	};
 }
 
-export interface ProductState {
-	product: ProductInterface;
-}
-
 export interface ProductInterface {
 	_id: string;
 	title: string;
-	content: string;
 	imageUrl: string;
 	price: number;
-	updatedAt: string;
+	content: string;
+}
+
+export interface ProductState {
+	product: ProductInterface;
 }
