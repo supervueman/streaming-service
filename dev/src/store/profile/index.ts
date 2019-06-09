@@ -1,4 +1,4 @@
-import { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
+import { ActionTree, Module } from 'vuex';
 import { ProfileState, RootState } from '../../types';
 
 import { apolloClient } from '../../plugins/apolloProvider';

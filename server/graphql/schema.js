@@ -31,7 +31,7 @@ module.exports = buildSchema(`
     queryProfile(token: String!): Profile!
     login(email: String!, password: String!): AuthData!
     queryUsers: UsersData!
-    queryUser(userId: String!): User!
+    queryUser(id: ID!): User!
     queryProducts: ProductsData!
     queryProduct(prodId: String!): Product!
   }
@@ -41,7 +41,7 @@ module.exports = buildSchema(`
     editProfile(userInput: ProfileEditInputData): Profile!
     createProduct(productInput: ProductInputData): Product!
     editProduct(productInput: ProductEditInputData): Product!
-    deleteProduct(id: String!): Boolean
+    deleteProduct(id: ID!): Boolean
   }
 
   schema {

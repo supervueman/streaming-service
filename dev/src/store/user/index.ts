@@ -36,7 +36,7 @@ const actions: ActionTree<UserState, RootState> = {
 		const res: any = await apolloClient.query({
 			query: QUERY_USER,
 			variables: {
-				userId: payload
+				id: payload
 			}
 		});
 

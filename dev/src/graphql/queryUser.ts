@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const QUERY_USER = gql`
-	query queryUser($userId: String!) {
-		queryUser(userId: $userId) {
+	query queryUser($id: ID!) {
+		queryUser(id: $id) {
 			_id
 			firstname
 			lastname
