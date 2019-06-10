@@ -30,6 +30,17 @@
           label="Image:"
           required
         )
+
+        input(
+          class="input-file"
+          type="file"
+          ref="file"
+          multiple
+          v-on:change="fileChange"
+          style="display: none;"
+        )
+
+        v-btn(@click="triggerForUploadFile") Upload image
       v-card-actions
         //- router-link(to="/reset-password" class="ml-2") Забыли пароль?
         v-btn(
@@ -54,6 +65,34 @@ export default class AddProduct extends Vue {
   };
 
   @Action("addProduct", { namespace: "product" }) addProduct: any;
+
+  fileChange(val) {
+    const files = this.$refs.file.files;
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("image", files[i]);
+    }
+
+    fetch("http://localhost:3000/image-upload", {
+      method: "PUT",
+      headers: {
+        Authorization: localStorage.getItem("access_token")
+      },
+      body: formData
+    })
+      .then(res => {
+        console.log(res);
+        return res.json();
+      })
+      .then(fileRes => {
+        console.log(fileRes);
+      })
+      .catch(err => console.log(err));
+  }
+
+  triggerForUploadFile() {
+    this.$refs.file.click();
+  }
 
   async save() {
     this.product.price = Number(this.product.price);

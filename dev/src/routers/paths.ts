@@ -58,10 +58,5 @@ export default [
 		path: '/products/:id',
 		name: 'product',
 		component: 'Product'
-	},
-	{
-		path: '/files',
-		name: 'files',
-		component: 'Files'
 	}
 ];
