@@ -32,7 +32,6 @@ const fileFilter = (req, file, cb) => {
 	}
 };
 
-
 const clearImage = filePath => {
 	filePath = path.join(__dirname, '..', filePath);
 	fs.unlink(filePath, err => console.log(err));
@@ -46,7 +45,7 @@ const auth = require('./middleware/auth');
 
 const app = express();
 
-app.use(bodyParser.json()); // application/json
+app.use(bodyParser.json());
 app.use(
 	multer({
 		storage: fileStorage,
