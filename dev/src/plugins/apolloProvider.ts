@@ -32,7 +32,12 @@ const authLink: any = setContext(
 // Create the apollo client
 export const apolloClient = new ApolloClient({
 	link: authLink.concat(httpLink),
-	cache
+	cache,
+	defaultOptions: {
+		query: {
+			fetchPolicy: 'no-cache'
+		}
+	}
 });
 
 Vue.use(VueApollo);
