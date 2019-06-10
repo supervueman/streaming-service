@@ -13,7 +13,6 @@ module.exports = `
     content: String!
     subscribers: [User!]!
     subscriptions: [User!]!
-    password: String!
     products: [Product!]!
   }
 `;

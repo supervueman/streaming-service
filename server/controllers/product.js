@@ -94,9 +94,7 @@ module.exports = {
       throw error;
     }
 
-    const product = await Product.findById(productInput.prodId);
-
-    console.log(product)
+    const product = await Product.findById(productInput.id);
 
     product.title = productInput.title;
     product.imageUrl = productInput.imageUrl;
