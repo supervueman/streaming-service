@@ -73,10 +73,6 @@ const actions: ActionTree<ProfileState, RootState> = {
 	},
 
 	async fetchProfile({ commit }): Promise<void> {
-		interface MetadataObj {
-			[key: string]: any;
-		}
-
 		const res = await apolloClient.query({
 			query: QUERY_PROFILE,
 			variables: {
