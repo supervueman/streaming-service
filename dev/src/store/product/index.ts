@@ -68,7 +68,7 @@ const actions: ActionTree<ProductState, RootState> = {
 		const res: any = await apolloClient.mutate({
 			mutation: EDIT_PRODUCT,
 			variables: {
-				prodId: payload._id,
+				id: payload._id,
 				title: payload.title,
 				imageUrl: payload.imageUrl,
 				price: payload.price,

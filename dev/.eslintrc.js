@@ -1,15 +1,7 @@
 module.exports = {
   "extends": [
-    // "@vue/typescript",
-    // "plugin:vue/essential",
-    // "@vue/eslint-config-typescript"
-    // "eslint:recommended",
-    // "@vue/prettier",
-    // "plugin:prettier/recommended",
-    // "plugin:@typescript-eslint/recommended",
-
     "eslint:recommended",
-    // "plugin:@typescript-eslint/eslint-recommended",
+    "@vue/typescript",
     "plugin:@typescript-eslint/recommended",
   ],
   rules: {
@@ -24,6 +16,10 @@ module.exports = {
   "env": {
     "node": true,
     "commonjs": true,
+  },
+  parserOptions: {
+    parser: 'babel-eslint',
+    "ecmaVersion": 6,
   },
   "globals": {
     "localStorage": true,

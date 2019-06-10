@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const EDIT_PRODUCT = gql`
 	mutation editProduct(
-		$prodId: String!
+		$id: ID!
 		$title: String!
 		$imageUrl: String!
 		$price: Int!
@@ -10,7 +10,7 @@ export const EDIT_PRODUCT = gql`
 	) {
 		editProduct(
 			productInput: {
-				prodId: $prodId
+				id: $id
 				title: $title
 				imageUrl: $imageUrl
 				price: $price

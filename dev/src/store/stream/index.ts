@@ -1,16 +1,9 @@
 import { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
-import {
-	StreamState,
-	StreamInterface,
-	ProfileInterface,
-	ProductInterface,
-	RootState
-} from '@/types';
+import { StreamState, StreamInterface, RootState } from '@/types';
 
 import { apolloClient } from '@/plugins/apolloProvider';
 import { CREATE_STREAM } from '@/graphql/mutations/createStream';
 import { QUERY_STREAM } from '@/graphql/queries/queryStream';
-// import { EDIT_STREAM} from '@/graphql/mutations/editProduct';
 // import { DELETE_STREAM} from '@/graphql/mutations/deleteProduct';
 
 // import router from '@/routers';
