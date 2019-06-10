@@ -54,7 +54,7 @@ module.exports = {
     const createdProduct = await product.save();
 
     user.products.push(createdProduct);
-    user.save();
+    await user.save();
 
     return {
       ...createdProduct._doc,

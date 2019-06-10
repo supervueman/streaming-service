@@ -7,7 +7,7 @@ import { QUERY_PRODUCT } from '@/graphql/queries/queryProduct';
 import { EDIT_PRODUCT } from '@/graphql/mutations/editProduct';
 import { DELETE_PRODUCT } from '@/graphql/mutations/deleteProduct';
 
-import router from '../../routers';
+import router from '@/routers';
 
 const state: ProductState = {
 	product: {

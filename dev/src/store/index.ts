@@ -7,6 +7,7 @@ import { products } from '@/store/products';
 import { product } from '@/store/product';
 import { users } from '@/store/users';
 import { user } from '@/store/user';
+import { stream } from '@/store/stream';
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ export const store = new Vuex.Store({
 		products,
 		product,
 		users,
-		user
+		user,
+		stream
 	}
 });

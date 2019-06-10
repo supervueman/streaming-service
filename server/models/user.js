@@ -47,6 +47,10 @@ const userSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Product'
 	}],
+	stream: {
+		type: Schema.Types.ObjectId,
+		ref: 'Stream'
+	},
 	password: {
 		type: String,
 		required: true

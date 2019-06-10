@@ -103,3 +103,16 @@ export interface ProductInterface {
 export interface ProductState {
 	product: ProductInterface;
 }
+
+// Types for stream
+export interface StreamInterface {
+	_id: string;
+	title: string;
+	imageUrl: string;
+	streamer: ProfileInterface;
+	product: ProductInterface;
+}
+
+export interface StreamState {
+	stream: StreamInterface;
+}

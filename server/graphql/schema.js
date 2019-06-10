@@ -8,11 +8,13 @@ const ProductsType = require('./types/Products');
 const ProductType = require('./types/Product');
 const UsersType = require('./types/Users');
 const UserType = require('./types/user');
+const StreamType = require('./types/stream');
 
 const ProfileInputData = require('./inputs/ProfileInputData');
 const ProfileEditInputData = require('./inputs/ProfileEditInputData');
 const ProductInputData = require('./inputs/ProductInputData');
 const ProductEditInputData = require('./inputs/ProductEditInputData');
+const StreamInputData = require('./inputs/StreamInputData');
 
 module.exports = buildSchema(`
   ${ProfileType}
@@ -21,11 +23,13 @@ module.exports = buildSchema(`
   ${ProductType}
   ${UsersType}
   ${UserType}
+  ${StreamType}
 
   ${ProfileInputData}
   ${ProfileEditInputData}
   ${ProductInputData}
   ${ProductEditInputData}
+  ${StreamInputData}
 
   type RootQuery {
     queryProfile(token: String!): Profile!
@@ -42,6 +46,7 @@ module.exports = buildSchema(`
     createProduct(productInput: ProductInputData): Product!
     editProduct(productInput: ProductEditInputData): Product!
     deleteProduct(id: ID!): Boolean
+    createStream(streamInput: StreamInputData): Stream!
   }
 
   schema {
