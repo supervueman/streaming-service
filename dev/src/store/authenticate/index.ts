@@ -1,14 +1,12 @@
 import { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
-import { ProfileState, RootState, RequestDataInterface } from '../../types';
-import axios from 'axios';
-import requestDataHandler from '../../plugins/requestDataHandler';
+import { ProfileState, ProfileInterface, RootState } from '@/types';
 
-import router from '../../routers';
+import router from '@/routers';
 
-import { apolloClient } from '../../plugins/apolloProvider';
-import { SIGN_UP } from '../../graphql/signUp';
-import { SIGN_IN } from '../../graphql/signIn';
-import { QUERY_PROFILE } from '../../graphql/queryProfile';
+import { apolloClient } from '@/plugins/apolloProvider';
+import { SIGN_UP } from '@/graphql/mutations/signUp';
+import { SIGN_IN } from '@/graphql/queries/signIn';
+import { QUERY_PROFILE } from '@/graphql/queries/queryProfile';
 
 const state: ProfileState = {
 	profile: {
@@ -27,7 +25,7 @@ const state: ProfileState = {
 };
 
 const mutations: MutationTree<ProfileState> = {
-	setProfile(state, payload) {
+	setProfile(state, payload): void {
 		state.profile = payload;
 	}
 };
@@ -38,7 +36,7 @@ const actions: ActionTree<ProfileState, RootState> = {
 	 * @async
 	 * @param {Object} payload {email, password}
 	 */
-	async signUp(undefined, payload) {
+	async signUp(undefined, payload): Promise<void> {
 		await apolloClient.mutate({
 			mutation: SIGN_UP,
 			variables: {
@@ -53,7 +51,7 @@ const actions: ActionTree<ProfileState, RootState> = {
 	 * @async
 	 * @param {Object} payload {email, password}
 	 */
-	async signIn({ commit }, payload) {
+	async signIn({ commit }, payload): Promise<void> {
 		const res = await apolloClient.query({
 			query: SIGN_IN,
 			variables: {
@@ -74,7 +72,11 @@ const actions: ActionTree<ProfileState, RootState> = {
 		router.push('/profile');
 	},
 
-	async fetchProfile({ commit }) {
+	async fetchProfile({ commit }): Promise<void> {
+		interface MetadataObj {
+			[key: string]: any;
+		}
+
 		const res = await apolloClient.query({
 			query: QUERY_PROFILE,
 			variables: {
@@ -91,7 +93,7 @@ const actions: ActionTree<ProfileState, RootState> = {
 		}
 	},
 
-	async logout({ commit }) {
+	async logout({ commit }): Promise<void> {
 		localStorage.removeItem('access_token');
 		localStorage.removeItem('uid');
 		commit('setProfile', {
@@ -112,7 +114,7 @@ const actions: ActionTree<ProfileState, RootState> = {
 };
 
 const getters: GetterTree<ProfileState, RootState> = {
-	getProfile(state) {
+	getProfile(state): ProfileInterface {
 		return state.profile;
 	}
 };

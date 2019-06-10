@@ -52,10 +52,6 @@ export interface UserCardInterface {
 	phone: string;
 }
 
-export interface UserCardState {
-	userCard: UserCardInterface;
-}
-
 export interface UsersState {
 	users: {
 		users: UserCardInterface[];

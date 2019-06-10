@@ -19,7 +19,7 @@ import {
 	ParamsInterface,
 	HeadersInterface,
 	RequestDataInterface
-} from '../types';
+} from '@/types';
 
 export default (
 	method: string,

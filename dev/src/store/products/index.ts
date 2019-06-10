@@ -1,9 +1,9 @@
 import { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
-import { ProductsState, RootState } from '../../types';
+import { ProductsState, ProductCardInterface, RootState } from '@/types';
 
-import { apolloClient } from '../../plugins/apolloProvider';
+import { apolloClient } from '@/plugins/apolloProvider';
 
-import { QUERY_PRODUCTS } from '../../graphql/queryProducts';
+import { QUERY_PRODUCTS } from '@/graphql/queries/queryProducts';
 
 const state: ProductsState = {
 	products: {
@@ -13,7 +13,7 @@ const state: ProductsState = {
 };
 
 const mutations: MutationTree<ProductsState> = {
-	setProducts(state, payload) {
+	setProducts(state, payload): void {
 		state.products = payload;
 	}
 };
@@ -23,7 +23,7 @@ const actions: ActionTree<ProductsState, RootState> = {
 	 * @function fetchProducts
 	 * @async
 	 */
-	async fetchProducts({ commit }) {
+	async fetchProducts({ commit }): Promise<void> {
 		const res: any = await apolloClient.query({
 			query: QUERY_PRODUCTS
 		});
@@ -33,10 +33,10 @@ const actions: ActionTree<ProductsState, RootState> = {
 };
 
 const getters: GetterTree<ProductsState, RootState> = {
-	getProducts(state) {
+	getProducts(state): ProductCardInterface[] {
 		return state.products.products;
 	},
-	getCount(state) {
+	getCount(state): number {
 		return state.products.count;
 	}
 };

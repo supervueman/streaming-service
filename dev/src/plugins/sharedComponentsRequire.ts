@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-export default () => {
+export default (): void => {
 	const requireComponent = require.context(
 		// Относительный путь до каталога компонентов
 		'@/components/Shared',
@@ -10,14 +10,18 @@ export default () => {
 		/[A-Z]\w+\.(vue)$/
 	);
 
-	requireComponent.keys().forEach(fileName => {
-		const componentConfig = requireComponent(fileName);
+	// type Func = (fileName: string) => void;
 
-		const componentName = fileName
-			.split('/')
-			.pop()
-			.replace(/\.\w+$/, '');
+	requireComponent.keys().forEach(
+		(fileName): void => {
+			const componentConfig = requireComponent(fileName);
 
-		Vue.component(componentName, componentConfig.default || componentConfig);
-	});
+			const componentName: string = fileName
+				.split('/')
+				.pop()
+				.replace(/\.\w+$/, '');
+
+			Vue.component(componentName, componentConfig.default || componentConfig);
+		}
+	);
 };

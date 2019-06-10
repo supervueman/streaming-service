@@ -1,12 +1,12 @@
 import Vue from 'vue';
-import './plugins/vuetify';
-import sharedComponents from './plugins/sharedComponentsRequire';
-import App from './App.vue';
-import router from './routers';
-import { store } from './store';
+import '@/plugins/vuetify';
+import sharedComponents from '@/plugins/sharedComponentsRequire';
+import App from '@/App.vue';
+import router from '@/routers';
+import { store } from '@/store';
 import axios from 'axios';
 import 'vuetify/dist/vuetify.min.css';
-import apolloProvider from './plugins/apolloProvider';
+import apolloProvider from '@/plugins/apolloProvider';
 
 sharedComponents();
 

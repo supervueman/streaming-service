@@ -1,9 +1,9 @@
 import { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
-import { UserState, RootState } from '../../types';
+import { UserState, UserInterface, RootState } from '@/types';
 
-import { apolloClient } from '../../plugins/apolloProvider';
+import { apolloClient } from '@/plugins/apolloProvider';
 
-import { QUERY_USER } from '../../graphql/queryUser';
+import { QUERY_USER } from '@/graphql/queries/queryUser';
 
 const state: UserState = {
 	user: {
@@ -22,7 +22,7 @@ const state: UserState = {
 };
 
 const mutations: MutationTree<UserState> = {
-	setUser(state, payload) {
+	setUser(state, payload): void {
 		state.user = payload;
 	}
 };
@@ -32,7 +32,7 @@ const actions: ActionTree<UserState, RootState> = {
 	 * @function fetchUser
 	 * @async
 	 */
-	async fetchUser({ commit }, payload) {
+	async fetchUser({ commit }, payload): Promise<void> {
 		const res: any = await apolloClient.query({
 			query: QUERY_USER,
 			variables: {
@@ -45,7 +45,7 @@ const actions: ActionTree<UserState, RootState> = {
 };
 
 const getters: GetterTree<UserState, RootState> = {
-	getUser(state) {
+	getUser(state): UserInterface {
 		return state.user;
 	}
 };

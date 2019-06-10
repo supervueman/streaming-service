@@ -1,9 +1,9 @@
 import { ActionTree, Module } from 'vuex';
-import { ProfileState, RootState } from '../../types';
+import { ProfileState, RootState } from '@/types';
 
-import { apolloClient } from '../../plugins/apolloProvider';
+import { apolloClient } from '@/plugins/apolloProvider';
 
-import { EDIT_PROFILE } from '../../graphql/editProfile';
+import { EDIT_PROFILE } from '@/graphql/mutations/editProfile';
 
 const actions: ActionTree<ProfileState, RootState> = {
 	/**
@@ -11,8 +11,8 @@ const actions: ActionTree<ProfileState, RootState> = {
 	 * @async
 	 * @param {Object} payload {email, password}
 	 */
-	async editProfile(undefined, payload) {
-		const res = await apolloClient.mutate({
+	async editProfile(undefined, payload): Promise<void> {
+		await apolloClient.mutate({
 			mutation: EDIT_PROFILE,
 			variables: {
 				slug: payload.slug,
