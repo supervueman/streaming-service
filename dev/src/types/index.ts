@@ -105,6 +105,19 @@ export interface ProductState {
 }
 
 // Types for stream
+export interface StreamCardInterface {
+	_id: string;
+	title: string;
+	imageUrl: string;
+	streamer: UserInterface;
+}
+
+export interface StreamsState {
+	streams: {
+		streams: StreamCardInterface[];
+		count: number;
+	};
+}
 export interface StreamInterface {
 	_id: string;
 	title: string;

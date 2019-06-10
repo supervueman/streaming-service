@@ -8,19 +8,29 @@
       v-card-text
         v-layout.row.wrap(fill-height align-start justify-start)
           stream-card.xl3.lg3.md3.sm2.xs2(
-            firstname="Rinat"
-            lastname="Davlikamov"
-            id="1"
+            v-for="stream in streams"
+            :key="stream._id"
+            :id="stream._id"
             streamerId="1"
-            imageUrl="avatar.jpg"
-            title="Product"
+            :imageUrl="stream.imageUrl"
+            :title="stream.title"
           )
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
+import { StreamCardInterface } from "../types";
 
 @Component
-export default class Streams extends Vue {}
+export default class Streams extends Vue {
+  @Getter("getStreams", { namespace: "streams" })
+  streams: StreamCardInterface[];
+  @Getter("getCount", { namespace: "streams" }) count: number;
+  @Action("fetchStreams", { namespace: "streams" }) fetchStreams: any;
+
+  async mounted() {
+    await this.fetchStreams();
+  }
+}
 </script>

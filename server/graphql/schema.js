@@ -8,6 +8,7 @@ const ProductsType = require('./types/Products');
 const ProductType = require('./types/Product');
 const UsersType = require('./types/Users');
 const UserType = require('./types/user');
+const StreamsType = require('./types/streams');
 const StreamType = require('./types/stream');
 
 const ProfileInputData = require('./inputs/ProfileInputData');
@@ -23,6 +24,7 @@ module.exports = buildSchema(`
   ${ProductType}
   ${UsersType}
   ${UserType}
+  ${StreamsType}
   ${StreamType}
 
   ${ProfileInputData}
@@ -38,6 +40,7 @@ module.exports = buildSchema(`
     queryUser(id: ID!): User!
     queryProducts: ProductsData!
     queryProduct(id: ID!): Product!
+    queryStreams: StreamsData!
   }
 
   type RootMutation {
