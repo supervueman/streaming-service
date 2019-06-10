@@ -45,6 +45,11 @@ export default [
 		component: 'Stream'
 	},
 	{
+		path: '/stream-owner',
+		name: 'stream-owner',
+		component: 'StreamOwner'
+	},
+	{
 		path: '/products',
 		name: 'products',
 		component: 'Products'

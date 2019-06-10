@@ -41,6 +41,7 @@ module.exports = buildSchema(`
     queryProducts: ProductsData!
     queryProduct(id: ID!): Product!
     queryStreams: StreamsData!
+    queryStream(id: ID!): Stream!
   }
 
   type RootMutation {

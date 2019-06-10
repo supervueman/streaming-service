@@ -9,7 +9,7 @@ import {
 
 import { apolloClient } from '@/plugins/apolloProvider';
 import { CREATE_STREAM } from '@/graphql/mutations/createStream';
-// import { QUERY_STREAM} from '@/graphql/queries/queryProduct';
+import { QUERY_STREAM } from '@/graphql/queries/queryStream';
 // import { EDIT_STREAM} from '@/graphql/mutations/editProduct';
 // import { DELETE_STREAM} from '@/graphql/mutations/deleteProduct';
 
@@ -23,14 +23,9 @@ const state: StreamState = {
 		streamer: {
 			_id: '',
 			email: '',
-			phone: '',
 			firstname: '',
 			lastname: '',
-			avatar: '',
-			website: '',
-			facebook: '',
-			instagram: '',
-			vkontakte: ''
+			avatar: ''
 		},
 		product: {
 			_id: '',
@@ -63,43 +58,23 @@ const actions: ActionTree<StreamState, RootState> = {
 				imageUrl: payload.imageUrl
 			}
 		});
-	}
+	},
 
 	/**
 	 * @function fetchStream
 	 * @async
 	 * @param {String} payload id
 	 */
-	// async fetchStream({ commit }, payload): Promise<void> {
-	// 	const res: any = await apolloClient.query({
-	// 		query: QUERY_PRODUCT,
-	// 		variables: {
-	// 			id: payload
-	// 		}
-	// 	});
+	async fetchStream({ commit }, payload): Promise<void> {
+		const res: any = await apolloClient.query({
+			query: QUERY_STREAM,
+			variables: {
+				id: payload
+			}
+		});
 
-	// 	commit('setProduct', res.data.queryProduct);
-	// },
-
-	/**
-	 * @function editProfile
-	 * @async
-	 * @param {Object} payload {id, title, imageUrl, price, content}
-	 */
-	// async editProduct({ commit }, payload): Promise<void> {
-	// 	const res: any = await apolloClient.mutate({
-	// 		mutation: EDIT_PRODUCT,
-	// 		variables: {
-	// 			prodId: payload._id,
-	// 			title: payload.title,
-	// 			imageUrl: payload.imageUrl,
-	// 			price: payload.price,
-	// 			content: payload.content
-	// 		}
-	// 	});
-
-	// 	commit('setProduct', res.data.editProduct);
-	// },
+		commit('setStream', res.data.queryStream);
+	}
 
 	/**
 	 * @function deleteProduct

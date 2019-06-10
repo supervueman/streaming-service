@@ -53,28 +53,28 @@ module.exports = {
     }
   },
 
-  // queryProduct: async function ({
-  //   id
-  // }, req) {
-  //   if (!req.isAuth) {
-  //     const error = new Error('Not authenticated!');
-  //     error.code = 401;
-  //     throw error;
-  //   }
+  queryStream: async function ({
+    id
+  }, req) {
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
 
-  //   const product = await Product.findById(id);
+    const stream = await Stream.findById(id).populate('streamer').populate('product');
 
-  //   if (!product) {
-  //     const error = new Error('Invalid input');
-  //     error.code = 401;
-  //     throw error;
-  //   }
+    if (!stream) {
+      const error = new Error('Invalid input');
+      error.code = 401;
+      throw error;
+    }
 
-  //   return {
-  //     ...product._doc,
-  //     _id: product._id.toString()
-  //   }
-  // },
+    return {
+      ...stream._doc,
+      _id: stream._id.toString()
+    }
+  },
 
   // editProduct: async function ({
   //   productInput
