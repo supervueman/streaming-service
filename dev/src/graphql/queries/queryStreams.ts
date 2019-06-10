@@ -7,6 +7,11 @@ export const QUERY_STREAMS = gql`
 				_id
 				title
 				imageUrl
+				streamer {
+					_id
+					firstname
+					lastname
+				}
 			}
 			count
 		}

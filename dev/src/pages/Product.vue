@@ -76,8 +76,8 @@ export default class Product extends Vue {
   async stream() {
     this.createStream({
       prodId: this.product._id,
-      title: "My stream",
-      imageUrl: "stream.jpg"
+      title: this.product.title,
+      imageUrl: this.product.imageUrl
     });
   }
 }

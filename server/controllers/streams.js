@@ -10,7 +10,7 @@ module.exports = {
     }
 
     const count = await Stream.find().countDocuments();
-    const streams = await Stream.find().sort({
+    const streams = await Stream.find().populate('streamer').sort({
       createdAt: -1
     });
 

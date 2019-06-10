@@ -28,6 +28,8 @@ const actions: ActionTree<StreamsState, RootState> = {
 			query: QUERY_STREAMS
 		});
 
+		console.log(res);
+
 		commit('setStreams', res.data.queryStreams);
 	}
 };

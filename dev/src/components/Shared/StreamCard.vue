@@ -5,7 +5,7 @@
         :src="`/static/${imageUrl}`"
         aspect-ratio="1"
       )
-      v-flex.px-2 Product: {{title}}
+      v-flex.px-2 Stream: {{title}}
       v-flex Streamer: 
         router-link(:to="`/users/${streamerId}`") {{firstname}} {{lastname}}
 </template>

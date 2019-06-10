@@ -11,7 +11,9 @@
             v-for="stream in streams"
             :key="stream._id"
             :id="stream._id"
-            streamerId="1"
+            :streamerId="stream.streamer._id"
+            :firstname="stream.streamer.firstname"
+            :lastname="stream.streamer.lastname"
             :imageUrl="stream.imageUrl"
             :title="stream.title"
           )
