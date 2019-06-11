@@ -11,7 +11,7 @@
             v-for="product in products"
             :key="product._id"
             :id="product._id"
-            :imageUrl="product.imageUrl"
+            :imageUrl="`${baseImageUrl}/${product.imageUrl}`"
             :title="product.title"
             :price="product.price"
           )
@@ -21,9 +21,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { ProductCardInterface } from "../types";
+import { config } from "../config";
 
 @Component
 export default class Products extends Vue {
+  private baseImageUrl: string = config.baseImageUrl;
   @Getter("getProducts", { namespace: "products" })
   products: ProductCardInterface[];
   @Getter("getCount", { namespace: "products" }) count: number;

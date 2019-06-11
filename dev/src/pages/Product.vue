@@ -14,6 +14,9 @@
           label="Title:"
           required
         )
+
+        v-img(:src="`${baseImageUrl}/${product.imageUrl}`", alt="alt")
+
         v-text-field(
           v-model="product.content"
           label="Content:"
@@ -23,11 +26,6 @@
           v-model="product.price"
           label="Price:"
           type="number"
-          required
-        )
-        v-text-field(
-          v-model="product.imageUrl"
-          label="Image:"
           required
         )
       v-card-actions
@@ -51,6 +49,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { ProductInterface } from "../types";
+import { config } from "../config";
 
 @Component
 export default class Product extends Vue {
@@ -59,6 +58,8 @@ export default class Product extends Vue {
   @Action("editProduct", { namespace: "product" }) editProduct: any;
   @Action("deleteProduct", { namespace: "product" }) deleteProduct: any;
   @Action("createStream", { namespace: "stream" }) createStream: any;
+
+  private baseImageUrl: string = config.baseImageUrl;
 
   async mounted() {
     await this.fetchProduct(this.$route.params.id);

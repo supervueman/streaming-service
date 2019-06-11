@@ -14,6 +14,15 @@
           label="Title:"
           required
         )
+
+        v-img(
+          :src="`${baseImageUrl}/${product.imageUrl}`"
+          max-widht="300"
+          alt="alt"
+        )
+
+        v-btn(flat @click="triggerForUploadFile") Upload image
+
         v-text-field(
           v-model="product.content"
           label="Content:"
@@ -25,11 +34,6 @@
           type="number"
           required
         )
-        v-text-field(
-          v-model="product.imageUrl"
-          label="Image:"
-          required
-        )
 
         input(
           class="input-file"
@@ -39,7 +43,6 @@
           style="display: none;"
         )
 
-        v-btn(@click="triggerForUploadFile") Upload image
       v-card-actions
         v-btn(
           @click="save"
@@ -53,6 +56,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { Action } from "vuex-class";
 import { ProductInterface } from "../types";
 import axios from "axios";
+import { config } from "../config";
 
 @Component
 export default class AddProduct extends Vue {
@@ -62,6 +66,8 @@ export default class AddProduct extends Vue {
     imageUrl: "",
     price: 0
   };
+
+  private baseImageUrl: string = config.baseImageUrl;
 
   @Action("addProduct", { namespace: "product" }) addProduct: any;
 
@@ -76,7 +82,7 @@ export default class AddProduct extends Vue {
       formData.append("image", files[i]);
     }
 
-    const res = await axios("http://localhost:3000/image-upload", {
+    const res = await axios("http://localhost:3000/file-upload", {
       method: "PUT",
       headers: {
         Authorization: localStorage.getItem("access_token")

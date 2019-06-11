@@ -11,9 +11,9 @@ const {
 	dbconnect
 } = require('./utils/database.js');
 
-const fileStorage = multer.diskStorage({
+const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		cb(null, 'images');
+		cb(null, 'storage');
 	},
 	filename: (req, file, cb) => {
 		cb(null, new Date().toISOString() + '-' + file.originalname);
@@ -48,11 +48,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
 	multer({
-		storage: fileStorage,
-		fileFilter: fileFilter
+		storage,
+		fileFilter
 	}).single('image')
 );
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/storage', express.static(path.join(__dirname, 'storage')));
 
 if (process.env.NODE_ENV !== 'development') {
 	app.use(serveStatic(path.join(__dirname, '../client')));
@@ -73,7 +73,7 @@ app.use((req, res, next) => {
 
 app.use(auth);
 
-app.put('/image-upload', (req, res, next) => {
+app.put('/file-upload', (req, res, next) => {
 	if (!req.isAuth) {
 		throw new Error('Not authenticated!');
 	}

@@ -2,7 +2,7 @@
   v-flex.py-2.px-2
     v-card(:to="`/products/${id}`")
       v-img(
-        :src="`/static/${imageUrl}`"
+        :src="`${imageUrl}`"
         aspect-ratio="1"
       )
       v-flex.px-2 Product: {{title}}
