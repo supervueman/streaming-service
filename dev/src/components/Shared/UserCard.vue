@@ -2,7 +2,7 @@
   v-flex.py-2.px-2
     v-card(:to="`/users/${id}`")
       v-img(
-        :src="`/static/${avatar}`"
+        :src="`${avatar}`"
         aspect-ratio="1"
       )
       v-flex.px-2 {{firstname}} {{lastname}}

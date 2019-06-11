@@ -16,6 +16,7 @@
         )
 
         v-img(:src="`${baseImageUrl}/${product.imageUrl}`", alt="alt")
+        v-btn(flat @click="triggerForUploadFile") Upload image
 
         v-text-field(
           v-model="product.content"
@@ -27,6 +28,14 @@
           label="Price:"
           type="number"
           required
+        )
+        input(
+          class="input-file"
+          type="file"
+          ref="file"
+          multiple
+          style="display: none;"
+          @change="isSelectNewImage = true"
         )
       v-card-actions
         v-btn(
@@ -49,6 +58,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { ProductInterface } from "../types";
+import axios from "axios";
 import { config } from "../config";
 
 @Component
@@ -60,14 +70,41 @@ export default class Product extends Vue {
   @Action("createStream", { namespace: "stream" }) createStream: any;
 
   private baseImageUrl: string = config.baseImageUrl;
+  private isSelectNewImage: boolean = false;
 
   async mounted() {
     await this.fetchProduct(this.$route.params.id);
   }
 
+  triggerForUploadFile() {
+    this.$refs.file.click();
+  }
+
   async save() {
+    if (this.isSelectNewImage) {
+      const files = this.$refs.file.files;
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("image", files[i]);
+      }
+
+      const res: any = await axios(
+        `${process.env.VUE_APP_SERVER_URL_DEV}/file-upload`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: localStorage.getItem("access_token")
+          },
+          data: formData
+        }
+      );
+
+      this.product.imageUrl = res.data.filePath;
+    }
     this.product.price = Number(this.product.price);
     await this.editProduct(this.product);
+
+    this.isSelectNewImage = false;
   }
 
   async remove() {

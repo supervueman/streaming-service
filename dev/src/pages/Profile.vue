@@ -48,15 +48,22 @@
           label="Vkontakte:"
           required
         )
-        v-text-field(
-          v-model="profile.avatar"
-          label="Avatar:"
-          required
-        )
+
+        v-img(:src="`${baseImageUrl}/${profile.avatar}`", alt="alt")
+        v-btn(flat @click="triggerForUploadFile") Upload image
+
         v-text-field(
           v-model="profile.content"
           label="Content:"
           required
+        )
+        input(
+          class="input-file"
+          type="file"
+          ref="file"
+          multiple
+          style="display: none;"
+          @change="isSelectNewImage = true"
         )
       v-card-actions
         v-btn.ml-auto.mr-2.mb-2(
@@ -68,14 +75,46 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
+import { ProfileInterface } from "../types";
+import axios from "axios";
+import { config } from "../config";
 
 @Component
 export default class Profile extends Vue {
-  @Getter("getProfile", { namespace: "authenticate" }) profile: string;
+  @Getter("getProfile", { namespace: "authenticate" })
+  profile: ProfileInterface;
   @Action("editProfile", { namespace: "profile" }) editProfile: any;
 
+  private baseImageUrl: string = config.baseImageUrl;
+  private isSelectNewImage: boolean = false;
+
+  triggerForUploadFile() {
+    this.$refs.file.click();
+  }
+
   async save() {
+    if (this.isSelectNewImage) {
+      const files = this.$refs.file.files;
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("image", files[i]);
+      }
+
+      const res: any = await axios(
+        `${process.env.VUE_APP_SERVER_URL_DEV}/file-upload`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: localStorage.getItem("access_token")
+          },
+          data: formData
+        }
+      );
+
+      this.profile.avatar = res.data.filePath;
+    }
     await this.editProfile(this.profile);
+    this.isSelectNewImage = false;
   }
 }
 </script>

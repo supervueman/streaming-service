@@ -13,7 +13,7 @@
             :id="user._id"
             :firstname="user.firstname"
             :lastname="user.lastname"
-            :avatar="user.avatar"
+            :avatar="`${baseImageUrl}/${user.avatar}`"
             :email="user.email"
             :phone="user.phone"
           )
@@ -23,12 +23,15 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { UserCardInterface } from "../types";
+import { config } from "../config";
 
 @Component
 export default class Users extends Vue {
   @Getter("getUsers", { namespace: "users" }) users: UserCardInterface[];
   @Getter("getCount", { namespace: "users" }) count: number;
   @Action("fetchUsers", { namespace: "users" }) fetchUsers: any;
+
+  private baseImageUrl: string = config.baseImageUrl;
 
   async mounted() {
     await this.fetchUsers();

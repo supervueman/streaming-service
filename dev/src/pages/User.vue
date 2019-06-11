@@ -48,11 +48,9 @@
             label="Vkontakte:"
             disabled
           )
-          v-text-field(
-            v-model="user.avatar"
-            label="Avatar:"
-            disabled
-          )
+
+          v-img(:src="`${baseImageUrl}/${user.avatar}`")
+
           v-text-field(
             v-model="user.content"
             label="Content:"
@@ -64,11 +62,14 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { UserInterface } from "../types";
+import { config } from "../config";
 
 @Component
 export default class User extends Vue {
   @Getter("getUser", { namespace: "user" }) user: UserInterface;
   @Action("fetchUser", { namespace: "user" }) fetchUser: any;
+
+  private baseImageUrl: string = config.baseImageUrl;
 
   async mounted() {
     await this.fetchUser(this.$route.params.id);

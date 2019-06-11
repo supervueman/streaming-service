@@ -82,13 +82,16 @@ export default class AddProduct extends Vue {
       formData.append("image", files[i]);
     }
 
-    const res = await axios("http://localhost:3000/file-upload", {
-      method: "PUT",
-      headers: {
-        Authorization: localStorage.getItem("access_token")
-      },
-      data: formData
-    });
+    const res = await axios(
+      `${process.env.VUE_APP_SERVER_URL_DEV}/file-upload`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: localStorage.getItem("access_token")
+        },
+        data: formData
+      }
+    );
 
     this.product.imageUrl = res.data.filePath;
     this.product.price = Number(this.product.price);
