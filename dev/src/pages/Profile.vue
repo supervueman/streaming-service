@@ -100,16 +100,13 @@ export default class Profile extends Vue {
         formData.append("image", files[i]);
       }
 
-      const res: any = await axios(
-        `${process.env.VUE_APP_SERVER_URL_DEV}/file-upload`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: localStorage.getItem("access_token")
-          },
-          data: formData
-        }
-      );
+      const res: any = await axios("/file-upload", {
+        method: "PUT",
+        headers: {
+          Authorization: localStorage.getItem("access_token")
+        },
+        data: formData
+      });
 
       this.profile.avatar = res.data.filePath;
     }
