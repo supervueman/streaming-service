@@ -8,6 +8,7 @@
       v-card-text
         v-layout.row.wrap(fill-height align-start justify-start)
           user-card.xl3.lg3.md3.sm2.xs2(
+            v-if="user._id !== ''"
             v-for="user in users"
             :key="user._id"
             :id="user._id"

@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-flex.py-2.px-2
+  v-flex.py-2.px-2(v-if="stream._id !== ''")
     v-card(
       class="mx-auto"
     )
@@ -10,7 +10,8 @@
             v-flex.title Product: {{stream.product.title}}
             v-flex
               v-img.mx-auto.my-3(
-                :src="`/static/${stream.product.imageUrl}`"
+                v-if="stream.imageUrl !== ''"
+                :src="`${baseImageUrl}/${stream.imageUrl}`"
                 max-width="300"
                 alt="alt"
               )
@@ -24,7 +25,7 @@
               ) {{stream.streamer.firstname}} {{stream.streamer.lastname}}
             v-flex
               v-img.mx-auto.my-3(
-                :src="`/static/${stream.streamer.avatar}`"
+                :src="`${baseImageUrl}/${stream.streamer.avatar}`"
                 max-width="300"
                 alt="alt"
               )
@@ -35,11 +36,14 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { StreamInterface } from "../types";
+import { config } from "../config";
 
 @Component
 export default class Stream extends Vue {
   @Getter("getStream", { namespace: "stream" }) stream: StreamInterface;
   @Action("fetchStream", { namespace: "stream" }) fetchStream: any;
+
+  private baseImageUrl: string = config.baseImageUrl;
 
   async mounted() {
     await this.fetchStream(this.$route.params.id);

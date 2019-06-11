@@ -2,7 +2,8 @@
   v-flex.py-2.px-2
     v-card(:to="`/streams/${id}`")
       v-img(
-        :src="`/static/${imageUrl}`"
+        v-if="imageUrl !== ''"
+        :src="imageUrl"
         aspect-ratio="1"
       )
       v-flex.px-2 Stream: {{title}}

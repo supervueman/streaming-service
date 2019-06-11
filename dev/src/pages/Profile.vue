@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-flex.py-2.px-2(v-if="profile")
+  v-flex.py-2.px-2(v-if="profile._id !== ''")
     v-card(
       class="mx-auto"
       max-width="500"

@@ -8,6 +8,7 @@
       v-card-text
         v-layout.row.wrap(fill-height align-start justify-start)
           product-card.xl3.lg3.md3.sm2.xs2(
+            v-if="product._id !== ''"
             v-for="product in products"
             :key="product._id"
             :id="product._id"

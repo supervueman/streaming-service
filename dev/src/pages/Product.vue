@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-flex.py-2.px-2
+  v-flex.py-2.px-2(v-if="product._id !== ''")
     v-card(
       class="mx-auto"
       max-width="500"
@@ -15,7 +15,11 @@
           required
         )
 
-        v-img(:src="`${baseImageUrl}/${product.imageUrl}`", alt="alt")
+        v-img(
+          v-if="product.imageUrl !== ''"
+          :src="`${baseImageUrl}/${product.imageUrl}`"
+          alt="alt"
+        )
         v-btn(flat @click="triggerForUploadFile") Upload image
 
         v-text-field(

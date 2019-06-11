@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-flex.py-2.px-2
+  v-flex.py-2.px-2(v-if="user._id !== ''")
     v-card(
         class="mx-auto"
         max-width="500"
@@ -49,7 +49,10 @@
             disabled
           )
 
-          v-img(:src="`${baseImageUrl}/${user.avatar}`")
+          v-img(
+            v-if="user.imageUrl !== ''"
+            :src="`${baseImageUrl}/${user.avatar}`"
+          )
 
           v-text-field(
             v-model="user.content"

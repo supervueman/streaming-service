@@ -8,13 +8,14 @@
       v-card-text
         v-layout.row.wrap(fill-height align-start justify-start)
           stream-card.xl3.lg3.md3.sm2.xs2(
+            v-if="stream._id !== ''"
             v-for="stream in streams"
             :key="stream._id"
             :id="stream._id"
             :streamerId="stream.streamer._id"
             :firstname="stream.streamer.firstname"
             :lastname="stream.streamer.lastname"
-            :imageUrl="stream.imageUrl"
+            :imageUrl="`${baseImageUrl}/${stream.imageUrl}`"
             :title="stream.title"
           )
 </template>
@@ -23,6 +24,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { StreamCardInterface } from "../types";
+import { config } from "../config";
 
 @Component
 export default class Streams extends Vue {
@@ -30,6 +32,8 @@ export default class Streams extends Vue {
   streams: StreamCardInterface[];
   @Getter("getCount", { namespace: "streams" }) count: number;
   @Action("fetchStreams", { namespace: "streams" }) fetchStreams: any;
+
+  private baseImageUrl: string = config.baseImageUrl;
 
   async mounted() {
     await this.fetchStreams();

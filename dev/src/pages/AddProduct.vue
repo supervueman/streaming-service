@@ -16,6 +16,7 @@
         )
 
         v-img(
+          v-if="product.imageUrl !== ''"
           :src="`${baseImageUrl}/${product.imageUrl}`"
           max-widht="300"
           alt="alt"
