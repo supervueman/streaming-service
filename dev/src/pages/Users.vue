@@ -17,6 +17,7 @@
             :avatar="`${baseImageUrl}/${user.avatar}`"
             :email="user.email"
             :phone="user.phone"
+            :isStream="user.isStream"
           )
 </template>
 

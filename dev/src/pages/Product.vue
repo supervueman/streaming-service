@@ -43,13 +43,9 @@
         )
       v-card-actions
         v-btn(
-          @click="stream"
-          class="ml-auto mr-2 mb-2"
-        ) Stream
-        v-btn(
           @click="remove"
           color="error"
-          class="mr-2 mb-2"
+          class="mr-2 mb-2 ml-auto"
         ) Remove
         v-btn(
           @click="save"
@@ -71,7 +67,6 @@ export default class Product extends Vue {
   @Action("fetchProduct", { namespace: "product" }) fetchProduct: any;
   @Action("editProduct", { namespace: "product" }) editProduct: any;
   @Action("deleteProduct", { namespace: "product" }) deleteProduct: any;
-  @Action("createStream", { namespace: "stream" }) createStream: any;
 
   private baseImageUrl: string = config.baseImageUrl;
   private isSelectNewImage: boolean = false;
@@ -110,14 +105,6 @@ export default class Product extends Vue {
 
   async remove() {
     await this.deleteProduct(this.product._id);
-  }
-
-  async stream() {
-    this.createStream({
-      prodId: this.product._id,
-      title: this.product.title,
-      imageUrl: this.product.imageUrl
-    });
   }
 }
 </script>

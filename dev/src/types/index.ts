@@ -1,3 +1,5 @@
+import { Stream } from 'stream';
+
 export interface RootState {
 	version: string;
 }
@@ -36,6 +38,8 @@ export interface ProfileInterface {
 	lastname: string;
 	avatar?: string;
 	content?: string;
+	stream?: string;
+	isStream: boolean;
 }
 
 export interface ProfileState {
@@ -50,6 +54,7 @@ export interface UserCardInterface {
 	avatar: string;
 	email: string;
 	phone: string;
+	isStream: boolean;
 }
 
 export interface UsersState {
@@ -71,6 +76,7 @@ export interface UserInterface {
 	instagram?: string;
 	vkontakte?: string;
 	content?: string;
+	isStream: boolean;
 }
 
 export interface UserState {
@@ -128,4 +134,8 @@ export interface StreamInterface {
 
 export interface StreamState {
 	stream: StreamInterface;
+}
+
+export interface StreamOwnerState {
+	streamOwner: StreamInterface;
 }

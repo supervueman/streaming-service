@@ -25,6 +25,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
 import { StreamCardInterface } from "../types";
 import { config } from "../config";
+import openSocket from "socket.io-client";
 
 @Component
 export default class Streams extends Vue {
@@ -36,6 +37,16 @@ export default class Streams extends Vue {
   private baseImageUrl: string = config.baseImageUrl;
 
   async mounted() {
+    const socket = openSocket(process.env.VUE_APP_SERVER_URL_DEV);
+    socket.on("streams", async data => {
+      if (data.action === "create") {
+        this.streams.push(data.stream);
+        // await this.fetchStreams();
+      }
+      if (data.action === "delete") {
+        await this.fetchStreams();
+      }
+    });
     await this.fetchStreams();
   }
 }

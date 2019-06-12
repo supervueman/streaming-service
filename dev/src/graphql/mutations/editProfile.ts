@@ -12,6 +12,7 @@ export const EDIT_PROFILE = gql`
 		$lastname: String!
 		$avatar: String!
 		$content: String!
+		$isStream: Boolean!
 	) {
 		editProfile(
 			userInput: {
@@ -25,6 +26,7 @@ export const EDIT_PROFILE = gql`
 				lastname: $lastname
 				avatar: $avatar
 				content: $content
+				isStream: $isStream
 			}
 		) {
 			_id
@@ -38,6 +40,7 @@ export const EDIT_PROFILE = gql`
 			lastname
 			avatar
 			content
+			isStream
 		}
 	}
 `;

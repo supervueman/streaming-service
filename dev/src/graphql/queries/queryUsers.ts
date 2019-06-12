@@ -10,6 +10,7 @@ export const QUERY_USERS = gql`
 				avatar
 				email
 				phone
+				isStream
 			}
 			count
 		}

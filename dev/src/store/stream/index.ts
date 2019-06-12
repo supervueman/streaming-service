@@ -4,9 +4,8 @@ import { StreamState, StreamInterface, RootState } from '@/types';
 import { apolloClient } from '@/plugins/apolloProvider';
 import { CREATE_STREAM } from '@/graphql/mutations/createStream';
 import { QUERY_STREAM } from '@/graphql/queries/queryStream';
-// import { DELETE_STREAM} from '@/graphql/mutations/deleteProduct';
-
-// import router from '@/routers';
+import { EDIT_STREAM } from '@/graphql/mutations/editStream';
+import { DELETE_STREAM } from '@/graphql/mutations/deleteStream';
 
 const state: StreamState = {
 	stream: {
@@ -18,7 +17,8 @@ const state: StreamState = {
 			email: '',
 			firstname: '',
 			lastname: '',
-			avatar: ''
+			avatar: '',
+			isStream: false
 		},
 		product: {
 			_id: '',
@@ -42,8 +42,8 @@ const actions: ActionTree<StreamState, RootState> = {
 	 * @async
 	 * @param {Object} payload {title, imageUrl}
 	 */
-	async createStream(undefined, payload): Promise<void> {
-		await apolloClient.mutate({
+	async createStream({ commit }, payload): Promise<void> {
+		const res = await apolloClient.mutate({
 			mutation: CREATE_STREAM,
 			variables: {
 				prodId: payload.prodId,
@@ -51,6 +51,8 @@ const actions: ActionTree<StreamState, RootState> = {
 				imageUrl: payload.imageUrl
 			}
 		});
+
+		commit('setStream', res.data.createStream);
 	},
 
 	/**
@@ -67,25 +69,61 @@ const actions: ActionTree<StreamState, RootState> = {
 		});
 
 		commit('setStream', res.data.queryStream);
-	}
+	},
 
 	/**
-	 * @function deleteProduct
+	 * @function editStream
+	 * @async
+	 * @param {Object} payload {id, title, imageUrl, price, content}
+	 */
+	async editStream({ commit }, payload): Promise<void> {
+		console.log(payload);
+		const res: any = await apolloClient.mutate({
+			mutation: EDIT_STREAM,
+			variables: {
+				id: payload._id,
+				prodId: payload.prodId,
+				title: payload.title,
+				imageUrl: payload.imageUrl
+			}
+		});
+
+		commit('setStream', res.data.editStream);
+	},
+
+	/**
+	 * @function deleteStream
 	 * @async
 	 * @param {String} payload id
 	 */
-	// async deleteProduct(undefined, payload): Promise<void> {
-	// 	const res: any = await apolloClient.mutate({
-	// 		mutation: DELETE_PRODUCT,
-	// 		variables: {
-	// 			id: payload
-	// 		}
-	// 	});
-
-	// 	if (res.data.deleteProduct) {
-	// 		router.push('/products');
-	// 	}
-	// }
+	async deleteStream({ commit }, payload): Promise<void> {
+		const res: any = await apolloClient.mutate({
+			mutation: DELETE_STREAM,
+			variables: {
+				id: payload
+			}
+		});
+		commit('setStream', {
+			_id: '',
+			title: '',
+			imageUrl: '',
+			streamer: {
+				_id: '',
+				email: '',
+				firstname: '',
+				lastname: '',
+				avatar: '',
+				isStream: false
+			},
+			product: {
+				_id: '',
+				title: '',
+				imageUrl: '',
+				price: 0,
+				content: ''
+			}
+		});
+	}
 };
 
 const getters: GetterTree<StreamState, RootState> = {

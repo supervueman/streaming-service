@@ -9,6 +9,7 @@
       v-flex.px-2 {{firstname}} {{lastname}}
       v-flex Phone: {{phone}}
       v-flex E-mail: {{email}}
+      v-flex Is stream {{isStream}}
 </template>
 
 
@@ -46,5 +47,10 @@ export default class UserCard extends Vue {
     default: ""
   })
   private id: string;
+
+  @Prop({
+    default: false
+  })
+  private isStream: boolean;
 }
 </script>

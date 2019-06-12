@@ -20,7 +20,8 @@ const state: ProfileState = {
 		firstname: '',
 		lastname: '',
 		avatar: '',
-		content: ''
+		content: '',
+		isStream: false
 	}
 };
 
@@ -41,7 +42,8 @@ const actions: ActionTree<ProfileState, RootState> = {
 			mutation: SIGN_UP,
 			variables: {
 				email: payload.email,
-				password: payload.password
+				password: payload.password,
+				isStream: false
 			}
 		});
 	},
@@ -103,7 +105,8 @@ const actions: ActionTree<ProfileState, RootState> = {
 			firstname: '',
 			lastname: '',
 			avatar: '',
-			content: ''
+			content: '',
+			isStream: false
 		});
 		router.push('/');
 	}

@@ -14,6 +14,8 @@ export const QUERY_USER = gql`
 			instagram
 			vkontakte
 			content
+			stream
+			isStream
 		}
 	}
 `;

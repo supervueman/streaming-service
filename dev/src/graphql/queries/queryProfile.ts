@@ -14,6 +14,12 @@ export const QUERY_PROFILE = gql`
 			lastname
 			avatar
 			content
+			stream {
+				_id
+				title
+				imageUrl
+			}
+			isStream
 		}
 	}
 `;

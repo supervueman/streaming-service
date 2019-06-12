@@ -10,11 +10,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Action, Getter } from "vuex-class";
+import { ProfileInterface } from "./types";
 
 @Component
 export default class App extends Vue {
   @Action("fetchProfile", { namespace: "authenticate" }) fetchProfile: any;
-  @Getter("getProfile", { namespace: "authenticate" }) profile: string;
+  @Getter("getProfile", { namespace: "authenticate" })
+  profile: ProfileInterface;
 
   async mounted() {
     if (localStorage.getItem("access_token") !== null) {

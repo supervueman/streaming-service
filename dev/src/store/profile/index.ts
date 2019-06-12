@@ -7,7 +7,7 @@ import { EDIT_PROFILE } from '@/graphql/mutations/editProfile';
 
 const actions: ActionTree<ProfileState, RootState> = {
 	/**
-	 * @function signUp
+	 * @function editProfile
 	 * @async
 	 * @param {Object} payload {email, password}
 	 */
@@ -25,7 +25,8 @@ const actions: ActionTree<ProfileState, RootState> = {
 				firstname: payload.firstname,
 				lastname: payload.lastname,
 				avatar: payload.avatar,
-				content: payload.content
+				content: payload.content,
+				isStream: payload.isStream
 			}
 		});
 	}

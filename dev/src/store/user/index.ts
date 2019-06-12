@@ -17,7 +17,8 @@ const state: UserState = {
 		facebook: '',
 		instagram: '',
 		vkontakte: '',
-		content: ''
+		content: '',
+		isStream: false
 	}
 };
 
