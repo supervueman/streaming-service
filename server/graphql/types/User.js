@@ -14,5 +14,7 @@ module.exports = `
     subscribers: [User!]!
     subscriptions: [User!]!
     products: [Product!]!
+    stream: Stream
+    isStream: Boolean!
   }
 `;

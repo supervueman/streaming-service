@@ -126,5 +126,9 @@ app.use((error, req, res) => {
 const port = process.env.PORT || 5000;
 
 dbconnect(async () => {
-	await app.listen(port, () => console.log(`Example app listening on http://localhost:${port}!`));
+	const server = await app.listen(port, () => console.log(`Example app listening on http://localhost:${port}!`));
+	const io = require('./socket').init(server);
+	io.on('connection', socket => {
+		console.log('Client connected');
+	})
 });

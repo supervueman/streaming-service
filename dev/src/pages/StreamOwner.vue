@@ -5,6 +5,7 @@
     )
       v-card-title.title My stream
       v-card-text
+        video#camera-stream
         v-text-field(
           v-model="stream.title"
           label="Title:"
@@ -28,6 +29,7 @@
         v-btn(primary @click="startStream") Start stream
         v-btn(primary @click="stopStream") Stop stream
         v-btn(primary @click="edit") Update stream
+        v-btn#start-camera(primary) start video
     v-card(
       class="mx-auto"
       v-if="isStreamStart"
@@ -148,6 +150,52 @@ export default class StreamOwner extends Vue {
   async mounted() {
     await this.fetchProfile();
     await this.fetchProducts();
+
+    navigator.getUserMedia =
+      navigator.getUserMedia ||
+      navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia;
+    // References to all the element we will need.
+    var video = document.querySelector("#camera-stream"),
+      start_camera = document.querySelector("#start-camera");
+
+    // The getUserMedia interface is used for handling camera input.
+    // Some browsers need a prefix so here we're covering all the options
+    navigator.getMedia =
+      navigator.getUserMedia ||
+      navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia ||
+      navigator.msGetUserMedia;
+
+    if (!navigator.getMedia) {
+    } else {
+      // Request the camera.
+      navigator.getMedia(
+        { video: true },
+        stream => {
+          // Create an object URL for the video stream and
+          // set it as src of our HTLM video element.
+          try {
+            video.srcObject = stream;
+          } catch (error) {
+            video.src = window.URL.createObjectURL(stream);
+          }
+          // video.srcObject = window.URL.createObjectURL(stream);
+          // Play the video element to start the stream.
+          video.play();
+        },
+        // Error Callback
+        function(err) {
+          console.log(err);
+        }
+      );
+    }
   }
 }
 </script>
+
+<style lang="sass">
+#camera-stream
+  width: 100%
+</style>
+

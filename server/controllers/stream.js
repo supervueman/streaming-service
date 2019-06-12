@@ -1,5 +1,7 @@
 const validator = require('validator');
 
+const io = require('../socket');
+
 const User = require('../models/user');
 const Product = require('../models/product');
 const Stream = require('../models/stream');
@@ -28,24 +30,43 @@ module.exports = {
       throw error;
     }
 
-    const product = await Product.findById(streamInput.prodId); // Edit prodId
-    if (!product) {
-      const error = new Error('Invalid input');
-      error.code = 401;
-      throw error;
-    }
-
     const stream = new Stream({
       title: streamInput.title,
       imageUrl: streamInput.imageUrl,
       streamer: user,
-      product: product
     });
+
+    if (streamInput.prodId) {
+      const product = await Product.findById(streamInput.prodId); // Edit prodId
+      if (!product) {
+        const error = new Error('Invalid input');
+        error.code = 401;
+        throw error;
+      }
+      stream.product = product;
+    }
 
     const createdStream = await stream.save();
 
     user.stream = createdStream;
+    user.isStream = true;
+
     await user.save();
+
+    io.getIO().emit('streams', {
+      action: 'create',
+      stream: {
+        title: createdStream._doc.title,
+        imageUrl: createdStream._doc.imageUrl,
+        streamer: {
+          _id: createdStream._doc.streamer._id.toString(),
+          firstname: createdStream._doc.streamer.firstname,
+          lastname: createdStream._doc.streamer.lastname
+        },
+        product: createdStream._doc.product,
+        _id: createdStream._id.toString(),
+      },
+    });
 
     return {
       ...createdStream._doc,
@@ -76,64 +97,79 @@ module.exports = {
     }
   },
 
-  // editProduct: async function ({
-  //   productInput
-  // }, req) {
-  //   if (!req.isAuth) {
-  //     const error = new Error('Not authenticated!');
-  //     error.code = 401;
-  //     throw error;
-  //   }
+  editStream: async function ({
+    streamInput
+  }, req) {
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
 
-  //   const product = await Product.findById(productInput.prodId);
+    const stream = await Stream.findById(streamInput.id);
+    stream.title = streamInput.title;
+    stream.imageUrl = streamInput.imageUrl;
 
-  //   console.log(product)
+    if (streamInput.prodId !== '') {
+      const product = await Product.findById(streamInput.prodId);
 
-  //   product.title = productInput.title;
-  //   product.imageUrl = productInput.imageUrl;
-  //   product.price = productInput.price;
-  //   product.content = productInput.content;
+      if (product) {
+        stream.product = product
+      }
+    }
 
-  //   await product.save();
+    await stream.save();
 
-  //   return {
-  //     _id: product._id.toString(),
-  //     title: product.title,
-  //     imageUrl: product.imageUrl,
-  //     price: product.price,
-  //     content: product.content
-  //   }
-  // },
+    io.getIO().emit('stream', {
+      action: 'update',
+      stream: {
+        title: stream._doc.title,
+        imageUrl: stream._doc.imageUrl,
+        product: stream._doc.product,
+        _id: stream._id.toString(),
+      },
+    });
 
-  // deleteProduct: async function ({
-  //   id
-  // }, req) {
-  //   if (!req.isAuth) {
-  //     const error = new Error('Not authenticated!');
-  //     error.code = 401;
-  //     throw error;
-  //   }
+    return {
+      ...stream._doc,
+      _id: stream._id.toString()
+    }
+  },
 
-  //   const product = await Product.findById(id);
+  deleteStream: async function ({
+    id
+  }, req) {
+    if (!req.isAuth) {
+      const error = new Error('Not authenticated!');
+      error.code = 401;
+      throw error;
+    }
 
-  //   if (!product) {
-  //     const error = new Error('Invalid input');
-  //     error.code = 401;
-  //     throw error;
-  //   }
+    const stream = await Stream.findById(id);
 
-  //   if (product.creator.toString() !== req.userId.toString()) {
-  //     const error = new Error('Not authorized!');
-  //     error.code = 402;
-  //     throw error;
-  //   }
+    if (!stream) {
+      const error = new Error('Invalid input');
+      error.code = 401;
+      throw error;
+    }
 
-  //   await Product.findByIdAndRemove(id);
+    if (stream.streamer.toString() !== req.userId.toString()) {
+      const error = new Error('Not authorized!');
+      error.code = 402;
+      throw error;
+    }
 
-  //   const user = await User.findById(req.userId);
-  //   user.products.pull(id);
+    await Stream.findByIdAndRemove(id);
 
-  //   await user.save();
-  //   return true;
-  // }
+    const user = await User.findById(req.userId);
+    user.isStream = false;
+
+    await user.save();
+
+    io.getIO().emit('streams', {
+      action: 'delete',
+      _id: id
+    });
+    return true;
+  }
 }

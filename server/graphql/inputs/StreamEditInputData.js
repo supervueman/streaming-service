@@ -1,5 +1,6 @@
 module.exports = `
-  input StreamInputData {
+  input StreamEditInputData {
+    id: ID!
     prodId: ID
     title: String!
     imageUrl: String!

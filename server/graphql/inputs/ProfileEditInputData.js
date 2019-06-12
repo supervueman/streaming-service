@@ -10,5 +10,6 @@ module.exports = `
     lastname: String!
     avatar: String!
     content: String!
+    isStream: Boolean!
   }
 `;

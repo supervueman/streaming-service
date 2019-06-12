@@ -51,6 +51,10 @@ const userSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Stream'
 	},
+	isStream: {
+		type: Boolean,
+		required: true
+	},
 	password: {
 		type: String,
 		required: true

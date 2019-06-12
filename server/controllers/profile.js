@@ -51,7 +51,8 @@ module.exports = {
       lastname: '',
       avatar: '',
       content: '',
-      password: hashedPw
+      password: hashedPw,
+      isStream: false
     });
 
     const createdUser = await user.save();
@@ -102,7 +103,7 @@ module.exports = {
       throw error;
     }
 
-    const user = await User.findById(req.userId);
+    const user = await User.findById(req.userId).populate('stream');
     if (!user) {
       const error = new Error('Invalid input');
       error.code = 401;
@@ -136,6 +137,7 @@ module.exports = {
     user.lastname = userInput.lastname;
     user.avatar = userInput.avatar;
     user.content = userInput.content;
+    user.isStream = userInput.isStream;
 
     await user.save();
 
@@ -153,6 +155,7 @@ module.exports = {
       lastname: user.lastname,
       avatar: user.avatar,
       content: user.content,
+      isStream: user.isStream
     }
   },
 }

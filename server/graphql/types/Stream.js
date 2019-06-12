@@ -4,6 +4,6 @@ module.exports = `
     title: String!
     imageUrl: String!
     streamer: User!
-    product: Product!
+    product: Product
   }
 `;
