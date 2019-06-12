@@ -77,11 +77,6 @@ export default class StreamOwner extends Vue {
 
   private baseImageUrl: string = config.baseImageUrl;
   private isStreamStart: boolean = false;
-  // private stream = {
-  //   _id: "",
-  //   title: "",
-  //   imageUrl: ""
-  // };
   private title: string = "";
   private imageUrl: string = "";
   private isSelectNewImage: boolean = false;

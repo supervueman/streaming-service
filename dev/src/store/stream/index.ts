@@ -77,7 +77,6 @@ const actions: ActionTree<StreamState, RootState> = {
 	 * @param {Object} payload {id, title, imageUrl, price, content}
 	 */
 	async editStream({ commit }, payload): Promise<void> {
-		console.log(payload);
 		const res: any = await apolloClient.mutate({
 			mutation: EDIT_STREAM,
 			variables: {
